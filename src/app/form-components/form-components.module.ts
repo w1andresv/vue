@@ -147,7 +147,7 @@ import { UpperCaseReactiveDirective } from '../helpers/UperCaseText';
   ]
 } )
 export class FormSharedModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<FormSharedModule> {
     return {
       ngModule: FormSharedModule,
       providers: []

@@ -27,7 +27,7 @@ export class CotizadorComponent implements OnInit {
   es: any;
   fechas: Date[];
   rango: string;
-  @ViewChild( 'dt', { static: false } ) private table: Table;
+  @ViewChild('dt') private table: Table;
   busqueda: string;
   fechaFinVegencia: any;
   cotizacion: Cotizacion;
