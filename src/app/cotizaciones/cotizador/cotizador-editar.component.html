@@ -1,0 +1,216 @@
+<div class="container-fluid">
+  <p-panel header="Nueva cotización">
+    <form (ngSubmit)="onSubmit()" *ngIf="formulario && !cargando" [formGroup]="formulario">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <label>Fecha Creación</label>
+          <label class="falso-combo">{{fechaCotizacion}}</label>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+          <label>Fecha inicio vigencia</label>
+          <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" yearRange="2019:2030"
+                      [showIcon]="true" [style]="{'width':'100%'}" [yearNavigator]="true"
+                      dateFormat="yy/mm/dd" formControlName="fechaInicioVigencia"></p-calendar>
+          <div *ngIf="submitted && f.fechaInicioVigencia.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Fecha inicio vigencia requerida
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+          <label>Fecha fin vigencia</label>
+          <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
+                      [style]="{'width':'100%'}" yearRange="2019:2030"
+                      [utc]="false" [yearNavigator]="true" dateFormat="yy/mm/dd"
+                      formControlName="fechaFinVigencia"></p-calendar>
+          <div *ngIf="submitted && f.fechaFinVigencia.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Fecha fin vigencia requerida
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Fecha vencimiento todo riesgo</label>
+          <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
+                      [style]="{'width':'100%'}" yearRange="2019:2030"
+                      [utc]="false" [yearNavigator]="true" dateFormat="yy/mm/dd"
+                      formControlName="fechaVencimientoPTR"></p-calendar>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Fecha vencimiento SOAT</label>
+          <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
+                      [style]="{'width':'100%'}" yearRange="2019:2030"
+                      [utc]="false" [yearNavigator]="true" dateFormat="yy/mm/dd"
+                      formControlName="fechaVencimientoSoat"></p-calendar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label for="tomador">Tomador</label>
+          <input class="form-control" formControlName="tomador" id="tomador" pInputText type="text"
+                 upper-case>
+          <div *ngIf="submitted && f.tomador.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Tomador requerido
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label for="numeroDocumento">Numero de documento</label>
+          <input class="form-control" formControlName="numeroDocumento" id="numeroDocumento" pInputText
+                 pKeyFilter="int" type="text">
+          <div *ngIf="submitted && f.numeroDocumento.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Numero de documento requerido
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Celular</label><br>
+          <p-inputMask [style]="{'width':'100%'}" formControlName="celular"
+                       mask="(999) 999-9999" placeholder="(999) 999-9999"></p-inputMask>
+          <div *ngIf="submitted && f.celular.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Numero de telefono requerido
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label for="correo">Correo</label>
+          <input class="form-control" formControlName="correo" id="correo" pInputText
+                 pKeyFilter="email" type="text" upper-case>
+          <div *ngIf="submitted && f.correo.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Correo requerido
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Sede</label>
+          <p-dropdown (onChange)="listarAsesores($event)"
+                      [options]="listaSedes"
+                      [style]="{'width':'100%'}" filter="filter"
+                      formControlName="idSede" placeholder="Seleccione"></p-dropdown>
+          <div *ngIf="submitted && f.idSede.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Sede requerido
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Asesor</label>
+          <p-dropdown [options]="listaAsesores"
+                      [style]="{'width':'100%'}"
+                      filter="filter" formControlName="idAsesor"
+                      placeholder="Seleccione"></p-dropdown>
+          <div *ngIf="submitted && f.idAsesor.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Asesor requerido
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Tipo de vehiculo</label>
+          <p-dropdown (onChange)="limpiarCalculo()"
+                      [options]="listaTiposVehiculos"
+                      [style]="{'width':'100%'}" filter="filter"
+                      formControlName="idTipoVehiculo" placeholder="Seleccione"></p-dropdown>
+          <div *ngIf="submitted && f.idTipoVehiculo.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Tipo de vehiculo requerido
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Modelo</label>
+          <p-dropdown (onChange)="limpiarCalculo()"
+                      [options]="listaModelos"
+                      [style]="{'width':'100%'}" filter="filter"
+                      formControlName="modelo" placeholder="Seleccione"></p-dropdown>
+          <div *ngIf="submitted && f.modelo.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Modelo requerido
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label for="placa">Placa</label>
+          <input class="form-control" formControlName="placa" id="placa"
+                 pInputText type="text">
+          <div *ngIf="submitted && f.placa.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Placa requerido
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Valor asegurado</label>
+          <input (blur)="limpiarCalculo()" [options]="{ prefix: '$ ', thousands: '.',nullable: false, precision: 0}"
+                 class="form-control"
+                 currencyMask formControlName="valorAsegurado"
+                 id="valorAsegurado" pInputText
+                 type="text">
+          <div *ngIf="submitted && f.valorAsegurado.invalid"
+               class="ui-message ui-messages-error ui-corner-all">
+            <i class="fa fa-close"></i>
+            Valor asegurado requerido
+          </div>
+        </div>
+      </div>
+      <div class="row form-footer-buttons">
+        <div class="col-md-12">
+          <button (click)="volver()" class="ui-button-danger" icon="fa fa-arrow-left" label="Cancelar" pButton
+                  type="button"></button>
+          <button *ngIf="!guardando" icon="fa fa-plus" label="Guardar" pButton style="margin: 10px"
+                  type="submit"></button>
+          <i *ngIf="guardando" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+          <button (click)="calcular(false)" icon="fa fa-calculator" label="Calcular" pButton style="margin: 10px"
+                  type="button"></button>
+        </div>
+      </div>
+      <div *ngIf="calculado" class="row"
+           style=" border: 1px solid lightgray; border-radius: 5px; background-color: ghostwhite;">
+        <div class="col-sm-12 col-md-3 col-lg-2">
+          <label>Prima anual</label>
+          <label class="falso-combo"> {{primaAnual |currency:'USD':'symbol':'1.0-0'}}</label>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-2">
+          <label>Prima total vigencia</label>
+          <label class="falso-combo"> {{totalVigencia |currency:'USD':'symbol':'1.0-0'}}</label>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-2">
+          <label>Subtotal</label>
+          <label class="falso-combo"> {{subTotal |currency:'USD':'symbol':'1.0-0'}}</label>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-2">
+          <label>I.V.A (19%)</label>
+          <label class="falso-combo"> {{iva |currency:'USD':'symbol':'1.0-0'}}</label>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-2">
+          <label>Total</label>
+          <label class="falso-combo"> {{total |currency:'USD':'symbol':'1.0-0'}}</label>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-2">
+          <label>Tasa aplicada</label>
+          <label class="falso-combo"> {{tasaAplicada }}</label>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-2">
+          <label>Días de vigencia</label>
+          <label class="falso-combo"> {{diasVigencia}}</label>
+        </div>
+      </div>
+    </form>
+    <i *ngIf="cargando" class="fa fa-circle-o-notch fa-spin fa-fw fa-2x"></i>
+  </p-panel>
+
+</div>

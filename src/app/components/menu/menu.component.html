@@ -1,0 +1,22 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Sidebar -->
+  <section class="sidebar sidebar-menu">
+    <ul class="sidebar-menu tree" data-widget="tree">
+      <li>
+        <a [routerLink]="['cot/cotizador']">
+          <i class="fa fa-calculator"></i> <span>Cotizaciones</span>
+        </a>
+      </li>
+      <li *ngIf="usuario.rol==='ADMIN'">
+        <a [routerLink]="['adm/usuarios']">
+          <i class="fa fa-user-circle"></i> <span>Usuarios</span>
+        </a>
+      </li>
+      <li *ngIf="usuario.rol==='ADMIN'">
+        <a [routerLink]="['adm/sedes']">
+          <i class="fa fa-university"></i> <span>Sedes</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</aside>

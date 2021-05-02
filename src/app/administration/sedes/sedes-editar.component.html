@@ -1,0 +1,88 @@
+<div class="container-fluid">
+  <p-panel header="Sede">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" *ngIf="formulario">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
+          <label for="usuario">Código *</label>
+          <input type="text" pInputText id="usuario" formControlName="codigoSede" class="form-control"
+                 minlength="2" pKeyFilter="alphanum" upper-case>
+          <div class="ui-message ui-messages-error ui-corner-all"
+               *ngIf="submitted && f.codigoSede.invalid">
+            <i class="fa fa-close"></i>
+            Código requerido
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
+          <label for="correo">Nombre *</label>
+          <input type="text" id="correo" pInputText class="form-control"
+                 formControlName="nombre" upper-case>
+          <div class="ui-message ui-messages-error ui-corner-all"
+               *ngIf="submitted && f.nombre.invalid">
+            <i class="fa fa-close"></i>
+            Nombre requerido
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="sede && sede.id">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
+          <label class="control-label"></label>
+          <p-checkbox formControlName="habilitado" binary="true" id="indicador" name="indicador"
+                      label="Habilitado"></p-checkbox>
+        </div>
+      </div>
+      <p-fieldset legend="Asesores" *ngIf="!sede">
+        <div formArrayName="asesores" class="clearfix">
+          <div *ngFor="let item of controlesAsesores.controls; let i=index">
+            <div [formGroupName]="i" class="row">
+              <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 form-group">
+                <label for="correo">Numero documento *</label>
+                <input type="text" id="numerodocumento" pInputText class="form-control"
+                       formControlName="numeroDocumento" pKeyFilter="num">
+                <div class="ui-message ui-messages-error ui-corner-all"
+                     *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.numeroDocumento.invalid">
+                  <i class="fa fa-close"></i>
+                  Numero documento requerido
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 form-group">
+                <label for="correo">Nombre *</label>
+                <input type="text" id="nombre" pInputText class="form-control"
+                       formControlName="nombre" upper-case>
+                <div class="ui-message ui-messages-error ui-corner-all"
+                     *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.nombre.invalid">
+                  <i class="fa fa-close"></i>
+                  Nombre requerido
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 form-group">
+                <label for="correo">Cargo *</label>
+                <input type="text" id="cargo" pInputText class="form-control"
+                       formControlName="cargo" upper-case>
+                <div class="ui-message ui-messages-error ui-corner-all"
+                     *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.cargo.invalid">
+                  <i class="fa fa-close"></i>
+                  Cargo requerido
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 form-group">
+                <button pButton type="button" icon="fa fa-plus" style="margin-top: 28px;" (click)="agregarAsesor()"
+                        *ngIf="i==0" pTooltip="Agregar" tooltipPosition="top"></button>
+                <button pButton type="button" icon="fa fa-minus" class="ui-button-danger" style="margin-top: 28px;"
+                        (click)="eliminarAsesor(i)" *ngIf="i!=0" pTooltip="Eliminar" tooltipPosition="top"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+      <div class="row form-footer-buttons">
+        <div class="col-12">
+          <button pButton type="button" class="ui-button-danger" icon="fa fa-arrow-left" (click)="atras()"
+                  label="Atras"></button>
+          <button pButton type="submit" style="margin-right: .5em; margin-left: .5em" icon="fa fa-floppy-o"
+                  label="Guardar"></button>
+        </div>
+      </div>
+    </form>
+  </p-panel>
+</div>
+

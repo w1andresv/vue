@@ -1,0 +1,84 @@
+<div *ngIf="mostrar==='TABLA'">
+  <h3>Cotizador</h3>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-2 ui-md-2 ui-sm-12">
+      <button pButton type="button" icon="fa fa-plus" label="Nueva" (click)="crear()"
+              style="margin-right: 0.5em;"></button>
+    </div>
+    <div class="ui-g-2  ui-md-2 ui-sm-12">
+      <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()"
+              style="margin-right: 0.5em;" class="ui-button-success"></button>
+    </div>
+    <div class="ui-g-3  ui-md-3 ui-sm-12">
+      <p-calendar [(ngModel)]="fechas" [locale]="es" dateFormat="yy/mm/dd"
+                  placeholder="fecha inicio-fin cotización" selectionMode="range" showButtonBar="true"
+                  [monthNavigator]="true" [yearNavigator]="true" [yearRange]="rango" (onSelect)="filtroFechas()"
+                  (onClearClick)="limpiarFiltroFechas()"
+                  [readonlyInput]="true" [showIcon]="true" [utc]="false"></p-calendar>
+    </div>
+    <div class="ui-g-5  ui-md-5 ui-sm-12">
+      <input type="text" pInputText size="40" placeholder="Buscar"
+             (input)="dt.filterGlobal($event.target.value, 'contains')" [(ngModel)]="busqueda">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <p-table [columns]="cols" [value]="cotizaciones" [paginator]="true" [rows]="10" [responsive]="true" #dt>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [pSortableColumnDisabled]="!col.sort"
+                class="text-center">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr [pSelectableRow]="row">
+            <td class="text-center">{{row.numeroDocumento}}</td>
+            <td class="text-center">{{row.tomador |uppercase}}</td>
+            <td class="text-right"><strong>{{row.valorAsegurado| currency:'USD':'symbol':'1.0-0'}}</strong></td>
+            <td class="text-center">{{row.celular}}</td>
+            <td style="width: 10% !important;">{{row.correo.toLowerCase()}}</td>
+            <td class="text-center">{{row.fechaInicioVigencia}}</td>
+            <td class="text-center">{{row.fechaCotizacion}}</td>
+            <td class="text-center">{{row.placa}}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button pButton type="button" icon="pi pi-pencil" (click)="editar(row)"
+                        pTooltip="Editar" tooltipPosition="top"></button>
+                <button type="button" class="ui-button-success" icon="fa fa-file-pdf-o" data-toggle="tooltip"
+                        pTooltip="Ver PDF" tooltipPosition="top" style="margin-left: .5em"
+                        pButton (click)="generarPdf(row)" *ngIf="generandoPdf!==row.id"></button>
+                <i class="fa fa-circle-o-notch fa-spin" style="margin-top: 10px; padding-top: 4px;margin-left: 8px" *ngIf="generandoPdf===row.id"></i>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="columns.length">
+              no hay registros
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<app-cotizador-editar *ngIf="mostrar==='EDITAR'" (dismiss)="mostrarComponente($event)"
+                      [cotizacion]="cotizacion"></app-cotizador-editar>
+<div *ngIf="mostrar==='PDF'">
+  <ngx-extended-pdf-viewer [src]="pdfCotizacion" *ngIf="pdfCotizacion" useBrowserLocale="true" height="80vh"
+                           delayFirstView="1000" [showPrintButton]="false"
+                           [showBookmarkButton]="false" (pdfDownloaded)="descargarPdf()"
+                           [showOpenFileButton]="false"></ngx-extended-pdf-viewer>
+  <div class="row form-footer-buttons">
+    <div class="col-md-10 offset-md-1 col-sm-12 col-lg-10 offset-lg-1">
+      <button pButton type="button" icon="fa fa-arrow-left" label="Volver" (click)="mostrarComponente('TABLA')"
+              style="margin: 10px"></button>
+    </div>
+  </div>
+</div>
+

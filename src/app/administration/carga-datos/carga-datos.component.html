@@ -1,0 +1,36 @@
+<h3 class="first">Cargar datos de clientes</h3>
+<p-fileUpload name="file" url="null"
+              (onBeforeUpload)="onBeforeUpload($event)"
+              (onSelect)="onSelect($event)"
+              (onUpload)="onUpload($event)">
+</p-fileUpload>
+<div class="row" *ngIf="listaClientes.length>0">
+  <div class="col-md-12">
+    <p-table [columns]="cols" [value]="listaClientes" [paginator]="true" [rows]="10" [responsive]="true" #dt>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field" [pSortableColumnDisabled]="!col.sort"
+              class="text-center">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr [pSelectableRow]="row">
+          <td class="text-center">{{row.nombre}}</td>
+          <td>{{row.documento |uppercase}}</td>
+          <td>{{row.fecha}}</td>
+          <td>{{row.producto}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length">
+            no hay registros
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
