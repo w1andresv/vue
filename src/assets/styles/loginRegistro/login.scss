@@ -1,0 +1,72 @@
+.panel-izq {
+  background: transparent linear-gradient(180deg, #0a6bad 0%, #196496 100%) 0% 0% no-repeat padding-box;
+  align-items: center;
+  display: flex;
+  color: white;
+  padding: 20px;
+}
+
+.panel-der {
+  align-items: center;
+  display: flex;
+  color: #1B73AF;
+}
+
+.item-panel {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.panel-izq-content {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 70% !important;
+}
+
+.panel-der-content {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 70% !important;
+  padding: 20px;
+
+}
+
+.p-button-register {
+  color: #ffffff;
+  background: #3382b840 !important;
+  border: 0.5px solid white !important;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 250px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 0px !important;
+}
+
+.p-button-primary-login {
+  background-color: #3282B8 !important;
+  border: 1px solid #3282B8 !important;
+  width: 100%;
+}
+
+.p-inputtext-custom {
+  border: 1px solid #7070704D !important;
+  border-left-width: 0px !important;
+}
+
+.p-inputgroup-addon-custom {
+  border-top: 1px solid #7070704D !important;
+  border-bottom: 1px solid #7070704D !important;
+  border-left: 1px solid #7070704D !important;
+  background-color: #FFFFFF !important;
+}
+
+.error-field {
+  color: red;
+}
+.logo-login{
+  text-align: center;
+  margin-bottom: 50px;
+}
+

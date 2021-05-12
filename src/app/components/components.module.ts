@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormSharedModule } from '../form-components/form-components.module';
 import { PageNotFountComponent } from './page-not-fount/page-not-fount.component';
 import { WidgetsModule } from '../widgets/widgets.module';
+import { BreadcrumbModule } from './breadcrumb/breadcrumb.module';
 
 
 @NgModule( {
@@ -28,7 +29,8 @@ import { WidgetsModule } from '../widgets/widgets.module';
     RouterModule,
     ReactiveFormsModule,
     FormSharedModule,
-    WidgetsModule
+    WidgetsModule,
+    BreadcrumbModule
   ]
 } )
 export class ComponentsModule {

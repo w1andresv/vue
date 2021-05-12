@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable'
 import { forkJoin, Observable } from 'rxjs';
 import * as moment from 'moment/moment';
 
@@ -163,7 +163,12 @@ export class GenerarPdfService {
                 colSpan: 6,
                 styles: { halign: 'left' }
               },
-              { content: '$ 4.000.000.000', colSpan: 4, rowSpan:3, styles: { halign: 'center', fontStyle: 'bold',valign: 'middle' } },
+              {
+                content: '$ 4.000.000.000',
+                colSpan: 4,
+                rowSpan: 3,
+                styles: { halign: 'center', fontStyle: 'bold', valign: 'middle' }
+              },
               {
                 content: 'Cero Deducibles',
                 colSpan: 2,

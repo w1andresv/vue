@@ -29,15 +29,15 @@
                     </div>
                   </div>
                 </div>
-                <div class="row form-footer-buttons">
-                  <div class="col-md-12">
+                <div class="row ">
+                  <div class="col-md-12 form-footer-buttons">
                     <div class="form-group">
                       <button id="btnIniciarSesion" pButton class="ui-button-secondary" *ngIf="!cargando"
                               label="Iniciar sesión"></button>
                       <br>
                       <label class="labelLogin" *ngIf="estado">{{estado}}</label>
                       <a *ngIf="cargando">
-                        <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
+                        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
                       </a>
                     </div>
                   </div>

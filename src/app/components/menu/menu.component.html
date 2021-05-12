@@ -1,22 +1,72 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <!-- Sidebar -->
-  <section class="sidebar sidebar-menu">
-    <ul class="sidebar-menu tree" data-widget="tree">
-      <li>
-        <a [routerLink]="['cot/cotizador']">
-          <i class="fa fa-calculator"></i> <span>Cotizaciones</span>
-        </a>
-      </li>
-      <li *ngIf="usuario.rol==='ADMIN'">
-        <a [routerLink]="['adm/usuarios']">
-          <i class="fa fa-user-circle"></i> <span>Usuarios</span>
-        </a>
-      </li>
-      <li *ngIf="usuario.rol==='ADMIN'">
-        <a [routerLink]="['adm/sedes']">
-          <i class="fa fa-university"></i> <span>Sedes</span>
-        </a>
-      </li>
-    </ul>
-  </section>
+<aside class="main-sidebar sidebar-light-lightblue">
+  <!-- Brand Logo -->
+  <a [routerLink]="['dashboard']" class="brand-link">
+    <img src="assets/images/gip.png" alt="AdminLTE Logo" class="brand-image img-circle">
+    <span class="brand-text">Cotizador</span>
+  </a>
+  <div
+    class="sidebar os-host os-theme-light os-host-resize-disabled os-host-transition os-host-scrollbar-horizontal-hidden">
+    <div class="os-padding">
+      <div class="os-viewport os-viewport-native-scrollbars-invisible os-viewport-native-scrollbars-overlaid">
+        <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+          <!-- Sidebar Menu -->
+          <nav class="">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
+                data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+              <li class="nav-item">
+                <a [routerLinkActive]="['active']" [routerLink]="['dashboard']" class="nav-link">
+                  <i class="nav-icon fa fa-home"></i>
+                  <p> Dashboard </p>
+                </a>
+              </li>
+              <li class="nav-item" >
+                <a [routerLinkActive]="['active']" [routerLink]="['cot/cotizador']" class="nav-link">
+                  <i class="nav-icon fa fa-calculator"></i>
+                  <p>Cotizaciones</p>
+                </a>
+              </li>
+              <li *ngIf="usuario&&usuario.rol==='ADMIN'" class="nav-item">
+                <a [routerLinkActive]="['active']" [routerLink]="['adm/usuarios']" class="nav-link">
+                  <i class="nav-icon fa fa-users"></i>
+                  <p> Usuarios </p>
+                </a>
+              </li>
+              <li  class="nav-item">
+                <a [routerLinkActive]="['active']" [routerLink]="['adm/sedes']" class="nav-link">
+                  <i class="nav-icon fa fa-university"></i>
+                  <p> Sedes </p>
+                </a>
+              </li>
+              <li class="nav-header">SESION</li>
+              <ul class="nav nav-pills nav-sidebar flex-column"
+                  data-accordion="false" data-widget="treeview" role="menu">
+                <li class="nav-item">
+                  <a (click)="cerrarSesion()" class="nav-link" style="cursor: pointer">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p> Cerrar sesión </p>
+                  </a>
+                </li>
+                <li></li>
+              </ul>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+      </div>
+    </div>
+    <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
+      <div class="os-scrollbar-track">
+        <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div>
+      </div>
+    </div>
+    <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
+      <div class="os-scrollbar-track">
+        <div class="os-scrollbar-handle" style="height: 47.0542%; transform: translate(0px, 0px);"></div>
+      </div>
+    </div>
+    <div class="os-scrollbar-corner"></div>
+  </div>
+  <!-- /.sidebar -->
 </aside>

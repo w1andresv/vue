@@ -1,22 +1,15 @@
-<div *ngIf="mostrar==='TABLA'">
-  <h3>Cotizador</h3>
-  <div class="ui-g ui-fluid">
-    <div class="ui-g-2 ui-md-2 ui-sm-12">
+<div *ngIf="mostrar==='TABLA'" class="container-fluid">
+  <div class="row">
+    <div class="col-12 display-row">
       <button pButton type="button" icon="fa fa-plus" label="Nueva" (click)="crear()"
               style="margin-right: 0.5em;"></button>
-    </div>
-    <div class="ui-g-2  ui-md-2 ui-sm-12">
       <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()"
               style="margin-right: 0.5em;" class="ui-button-success"></button>
-    </div>
-    <div class="ui-g-3  ui-md-3 ui-sm-12">
       <p-calendar [(ngModel)]="fechas" [locale]="es" dateFormat="yy/mm/dd"
                   placeholder="fecha inicio-fin cotización" selectionMode="range" showButtonBar="true"
                   [monthNavigator]="true" [yearNavigator]="true" [yearRange]="rango" (onSelect)="filtroFechas()"
                   (onClearClick)="limpiarFiltroFechas()"
                   [readonlyInput]="true" [showIcon]="true"></p-calendar>
-    </div>
-    <div class="ui-g-5  ui-md-5 ui-sm-12">
       <input type="text" pInputText size="40" placeholder="Buscar"
              (input)="dt.filterGlobal($event.target.value, 'contains')" [(ngModel)]="busqueda">
     </div>

@@ -8,10 +8,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormSharedModule } from './form-components/form-components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestsInterceptor } from './_interceptor/requests.interceptor';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule( {
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent
   ],
   imports: [ BrowserAnimationsModule,
     BrowserModule,
