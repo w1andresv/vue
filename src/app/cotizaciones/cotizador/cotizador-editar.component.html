@@ -21,7 +21,7 @@
           <label>Fecha fin vigencia</label>
           <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
                       [style]="{'width':'100%'}" yearRange="2019:2030"
-                      [utc]="false" [yearNavigator]="true" dateFormat="yy/mm/dd"
+                      [yearNavigator]="true" dateFormat="yy/mm/dd"
                       formControlName="fechaFinVigencia"></p-calendar>
           <div *ngIf="submitted && f.fechaFinVigencia.invalid"
                class="ui-message ui-messages-error ui-corner-all">
@@ -35,14 +35,14 @@
           <label>Fecha vencimiento todo riesgo</label>
           <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
                       [style]="{'width':'100%'}" yearRange="2019:2030"
-                      [utc]="false" [yearNavigator]="true" dateFormat="yy/mm/dd"
+                       [yearNavigator]="true" dateFormat="yy/mm/dd"
                       formControlName="fechaVencimientoPTR"></p-calendar>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 form-group">
           <label>Fecha vencimiento SOAT</label>
           <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
                       [style]="{'width':'100%'}" yearRange="2019:2030"
-                      [utc]="false" [yearNavigator]="true" dateFormat="yy/mm/dd"
+                      [yearNavigator]="true" dateFormat="yy/mm/dd"
                       formControlName="fechaVencimientoSoat"></p-calendar>
         </div>
       </div>

@@ -2,49 +2,31 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {
-  AccordionModule,
-  AutoCompleteModule,
-  ButtonModule,
-  CalendarModule,
-  CardModule,
-  ChartModule,
-  CheckboxModule,
-  ColorPickerModule,
-  ConfirmDialogModule,
-  DataListModule,
-  DialogModule,
-  DropdownModule,
-  EditorModule,
-  FieldsetModule,
-  FileUploadModule,
-  GrowlModule,
-  InputMaskModule,
-  InputSwitchModule,
-  InputTextareaModule,
-  InputTextModule,
-  KeyFilterModule,
-  ListboxModule,
-  MessageModule,
-  MessagesModule,
-  MultiSelectModule,
-  OrderListModule,
-  PanelModule,
-  PickListModule,
-  RadioButtonModule,
-  ScrollPanelModule,
-  SelectButtonModule,
-  SliderModule,
-  SpinnerModule,
-  TabViewModule,
-  ToggleButtonModule,
-  TooltipModule,
-  TreeModule
-} from 'primeng/primeng';
-
 import { TableModule } from 'primeng/table';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { UpperCaseReactiveDirective } from '../helpers/UperCaseText';
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TabViewModule } from 'primeng/tabview';
+import { AccordionModule } from 'primeng/accordion';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { DropdownModule } from 'primeng/dropdown';
+import { FieldsetModule } from 'primeng/fieldset';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { PanelModule } from 'primeng/panel';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SpinnerModule } from 'primeng/spinner';
+import { EditorModule } from 'primeng/editor';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { CardModule } from 'primeng/card';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 /**
@@ -64,34 +46,19 @@ import { UpperCaseReactiveDirective } from '../helpers/UperCaseText';
     AccordionModule,
     MessagesModule,
     MessageModule,
-    AutoCompleteModule,
-    FileUploadModule,
     DropdownModule,
     CalendarModule,
-    GrowlModule,
-    TreeModule,
     FieldsetModule,
     CheckboxModule,
-    ToggleButtonModule,
     InputMaskModule,
     InputTextareaModule,
     InputSwitchModule,
     PanelModule,
-    SliderModule,
-    SliderModule,
     RadioButtonModule,
-    PickListModule,
-    DataListModule,
-    OrderListModule,
-    ChartModule,
-    MultiSelectModule,
-    ListboxModule,
     SpinnerModule,
-    ColorPickerModule,
     EditorModule,
     TableModule,
     InputTextModule,
-    ScrollPanelModule,
     KeyFilterModule,
     NgxCurrencyModule,
     CardModule,
@@ -111,35 +78,20 @@ import { UpperCaseReactiveDirective } from '../helpers/UperCaseText';
     AccordionModule,
     MessagesModule,
     MessageModule,
-    AutoCompleteModule,
-    FileUploadModule,
     DropdownModule,
     CalendarModule,
-    GrowlModule,
-    TreeModule,
     FieldsetModule,
     CheckboxModule,
-    ToggleButtonModule,
     InputMaskModule,
     InputTextareaModule,
     InputSwitchModule,
     PanelModule,
-    SliderModule,
-    SelectButtonModule,
     RadioButtonModule,
-    PickListModule,
-    DataListModule,
-    OrderListModule,
-    ChartModule,
-    MultiSelectModule,
-    ListboxModule,
     SpinnerModule,
-    ColorPickerModule,
     EditorModule,
     TableModule,
     KeyFilterModule,
     InputTextModule,
-    ScrollPanelModule,
     NgxCurrencyModule,
     CardModule,
     UpperCaseReactiveDirective,

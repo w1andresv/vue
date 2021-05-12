@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  endpoint: 'https://us-central1-cotizadorautoplus-ceb1a.cloudfunctions.net/app/'
-  // endpoint: 'http://localhost:5000/cotizadorautoplus-ceb1a/us-central1/app/'
+  // endpoint: 'https://us-central1-cotizadorautoplus-ceb1a.cloudfunctions.net/app/'
+  endpoint: 'http://localhost:3000/'
   // urlServicios: 'http://localhost'
 };
 

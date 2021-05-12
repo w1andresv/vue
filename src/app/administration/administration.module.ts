@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SedesComponent } from './sedes/sedes.component';
 import { SedesEditarComponent } from './sedes/sedes-editar.component';
 import { AsesoresComponent } from './sedes/asesores.component';
-import { TooltipModule } from 'primeng/primeng';
 
 
 @NgModule( {

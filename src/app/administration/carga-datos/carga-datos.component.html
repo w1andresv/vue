@@ -1,9 +1,9 @@
 <h3 class="first">Cargar datos de clientes</h3>
-<p-fileUpload name="file" url="null"
-              (onBeforeUpload)="onBeforeUpload($event)"
-              (onSelect)="onSelect($event)"
-              (onUpload)="onUpload($event)">
-</p-fileUpload>
+<!--<p-fileUpload name="file" url="null"-->
+<!--              (onBeforeUpload)="onBeforeUpload($event)"-->
+<!--              (onSelect)="onSelect($event)"-->
+<!--              (onUpload)="onUpload($event)">-->
+<!--</p-fileUpload>-->
 <div class="row" *ngIf="listaClientes.length>0">
   <div class="col-md-12">
     <p-table [columns]="cols" [value]="listaClientes" [paginator]="true" [rows]="10" [responsive]="true" #dt>
