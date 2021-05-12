@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  endpoint: 'https://us-central1-cotizadorautoplus-ceb1a.cloudfunctions.net/app/'
+  endpoint: 'https://cotizadorautoplusback.herokuapp.com/'
 };
