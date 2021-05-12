@@ -1,9 +1,9 @@
 import { Asesor } from './asesor';
 
 export interface Sede {
-  id: string;
+  _id: string;
   nombre: string;
-  codigoSede: string;
+  codigo: string;
   habilitado: boolean;
   asesores: Asesor[];
 

@@ -32,13 +32,13 @@ export class SedesEditarComponent implements OnInit {
 
   cargarFormulario() {
     this.formulario = this.formBuilder.group( {
-      id: [ this.sede ? this.sede.id : null ],
+      _id: [ this.sede ? this.sede._id : null ],
       nombre: [ this.sede ? this.sede.nombre : null, [ Validators.required ] ],
-      codigoSede: [ this.sede ? this.sede.codigoSede : null, [ Validators.required ] ],
+      codigo: [ this.sede ? this.sede.codigo : null, [ Validators.required ] ],
       habilitado: [ this.sede ? this.sede.habilitado : true, [ Validators.required ] ],
       asesores: this.formBuilder.array( [] ),
     } );
-    if ( !( this.sede && this.sede.id ) ) {
+    if ( !( this.sede && this.sede._id ) ) {
       this.agregarAsesor();
     }
   }
@@ -69,7 +69,7 @@ export class SedesEditarComponent implements OnInit {
       } );
     }
     if ( this.formulario.valid ) {
-      if ( data.id ) {
+      if ( data._id ) {
         this.sedeService.actualizar( data ).subscribe( res => {
           this.dismiss.emit( 'T' );
         }, error => {
@@ -78,7 +78,7 @@ export class SedesEditarComponent implements OnInit {
       } else {
         this.sedeService.agregar( data ).subscribe( res => {
           for ( const item of listaAsesores ) {
-            item.idSede = res.id;
+            item.idSede = res._id;
             this.asesorService.agregar( item ).subscribe();
           }
           this.dismiss.emit( 'T' );
@@ -95,7 +95,7 @@ export class SedesEditarComponent implements OnInit {
 
   agregarAsesor() {
     const asesor = this.formBuilder.group( {
-      id: [ null ],
+      _id: [ null ],
       numeroDocumento: [ null, [ Validators.required ] ],
       nombre: [ null, [ Validators.required ] ],
       cargo: [ null, [ Validators.required ] ],

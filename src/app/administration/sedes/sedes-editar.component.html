@@ -4,10 +4,10 @@
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label for="usuario">Código *</label>
-          <input type="text" pInputText id="usuario" formControlName="codigoSede" class="form-control"
+          <input type="text" pInputText id="usuario" formControlName="codigo" class="form-control"
                  minlength="2" pKeyFilter="alphanum" upper-case>
           <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.codigoSede.invalid">
+               *ngIf="submitted && f.codigo.invalid">
             <i class="fa fa-close"></i>
             Código requerido
           </div>
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="sede && sede.id">
+      <div class="row" *ngIf="sede && sede._id">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label class="control-label"></label>
           <p-checkbox formControlName="habilitado" binary="true" id="indicador" name="indicador"
@@ -74,8 +74,8 @@
           </div>
         </div>
       </p-fieldset>
-      <div class="row form-footer-buttons">
-        <div class="col-12">
+      <div class="row ">
+        <div class="col-12 form-footer-buttons">
           <button pButton type="button" class="ui-button-danger" icon="fa fa-arrow-left" (click)="atras()"
                   label="Atras"></button>
           <button pButton type="submit" style="margin-right: .5em; margin-left: .5em" icon="fa fa-floppy-o"

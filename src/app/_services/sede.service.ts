@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { AppSettings } from '../../proyect.conf';
 import { Usuario } from '../modelos/usuario';
 import { Observable } from 'rxjs';
+import { Sede } from '../modelos/sede';
 
 @Injectable( {
   providedIn: 'root'
@@ -26,12 +27,12 @@ export class SedeService {
     return this.httpClient.get( this.urlServicios + '/' + id ).pipe( map( res => res as any ) );
   }
 
-  agregar( usuario: Usuario ): Observable<Usuario> {
-    return this.httpClient.post( this.urlServicios, usuario ).pipe( map( res => res as Usuario ) );
+  agregar( sede: Sede ): Observable<Sede> {
+    return this.httpClient.post( this.urlServicios, sede ).pipe( map( res => res as Sede ) );
   }
 
 
-  actualizar( usuario: Usuario ): Observable<any> {
-    return this.httpClient.put( this.urlServicios, usuario ).pipe( map( res => res as Usuario ) );
+  actualizar( sede: Sede ): Observable<any> {
+    return this.httpClient.put( this.urlServicios, sede ).pipe( map( res => res as Sede ) );
   }
 }

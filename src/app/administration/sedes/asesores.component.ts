@@ -40,16 +40,17 @@ export class AsesoresComponent implements OnInit {
 
   cargarLista() {
     this.listaAsesores = [];
-    this.asesorService.getByIdSede( this.sede.id ).subscribe( res => {
+    this.asesorService.getByIdSede( this.sede._id ).subscribe( res => {
       this.listaAsesores = res;
     } );
+    this.cargarFormulario(null)
   }
 
   cargarFormulario( asesor ) {
     this.formulario = this.formBuilder.group( {
-      id: [ asesor ? asesor.id : null ],
+      _id: [ asesor ? asesor._id : null ],
       numeroDocumento: [ asesor ? asesor.numeroDocumento : null, [ Validators.required ] ],
-      idSede: [ this.sede.id ],
+      idSede: [ this.sede._id ],
       nombre: [ asesor ? asesor.nombre : null, [ Validators.required ] ],
       cargo: [ asesor ? asesor.cargo : null, [ Validators.required ] ],
       habilitado: [ asesor ? asesor.habilitado : true, [ Validators.required ] ],
@@ -66,7 +67,7 @@ export class AsesoresComponent implements OnInit {
     const data = this.formulario.value;
     if ( this.formulario.valid ) {
       data.codigoCargo = data.cargo.length > 6 ? data.cargo.substring( 0, 6 ) : data.cargo;
-      if ( data.id ) {
+      if ( data._id ) {
         this.asesorService.actualizar( data ).subscribe( res => {
           this.mostrarOcultar( 'T', null );
           this.cargarLista();
