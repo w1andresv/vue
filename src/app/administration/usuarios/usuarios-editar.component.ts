@@ -42,10 +42,10 @@ export class UsuariosEditarComponent implements OnInit {
 
   cargarFormulario() {
     this.formulario = this.formBuilder.group( {
-      id: [ this.usuario ? this.usuario.id : null ],
+      _id: [ this.usuario ? this.usuario._id : null ],
       nombre: [ this.usuario ? this.usuario.nombre : null, [ Validators.required ] ],
       email: [ this.usuario ? this.usuario.email : null ],
-      username: [ this.usuario ? this.usuario.username : null, [ Validators.required ] ],
+      usuarioSistema: [ this.usuario ? this.usuario.usuarioSistema : null, [ Validators.required ] ],
       habilitado: [ this.usuario ? this.usuario.habilitado : true, [ Validators.required ] ],
       password: [ null, [ Validators.required ] ],
       passwordConfirm: [ null, [ Validators.required ] ],
@@ -82,11 +82,11 @@ export class UsuariosEditarComponent implements OnInit {
     this.submitted = true;
     const data = this.formulario.value;
     if ( this.formulario.valid ) {
-      const usr = this.listaUsuarios.find( x => x.username.toUpperCase() === data.username.toUpperCase() );
-      if ( ( usr && !data.id ) || ( usr && data.id !== usr.id ) ) {
+      const usr = this.listaUsuarios.find( x => x.usuarioSistema.toUpperCase() === data.usuarioSistema.toUpperCase() );
+      if ( ( usr && !data._id ) || ( usr && data._id !== usr._id ) ) {
         console.log( 'usuario existe' );
       } else {
-        if ( data.id ) {
+        if ( data._id ) {
           this.usuarioService.actualizar( data ).subscribe( res => {
             this.dismiss.emit( 'T' );
           }, error => {

@@ -1,12 +1,10 @@
 export interface Usuario {
-  id: string;
+  _id: string;
   email: string;
   nombre: string;
   fechaCreacion: string;
-  username: string;
+  usuarioSistema: string;
   password: string;
   habilitado: boolean;
   rol: string;
-  uid: string;
-
 }

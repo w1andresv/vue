@@ -147,9 +147,9 @@ export class CotizadorComponent implements OnInit {
         const listaExport = [];
         cotizaciones.map( x => {
           const tipo = tiposVehiculos.find( v => v.id === x.idTipoVehiculo );
-          const asesor = asesores.find( v => v.id === x.idAsesor );
-          const usuario = usuarios.find( v => v.id === x.idUsuario );
-          const sede = sedes.find( v => v.id === x.idSede );
+          const asesor = asesores.find( v => v._id === x.idAsesor );
+          const usuario = usuarios.find( v => v._id === x.idUsuario );
+          const sede = sedes.find( v => v._id === x.idSede );
           const obj = {
             numeroDocumento: x.numeroDocumento.toString(),
             tomador: x.tomador,

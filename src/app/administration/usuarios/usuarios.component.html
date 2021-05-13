@@ -20,7 +20,7 @@
     <ng-template pTemplate="body" let-row>
       <tr [pSelectableRow]="row">
         <td class="text-center">{{row.nombre |uppercase}}</td>
-        <td class="text-center">{{row.username }}</td>
+        <td class="text-center">{{row.usuarioSistema }}</td>
         <td class="text-center">{{row.email |uppercase}}</td>
         <td class="text-center">{{row.rol |uppercase}}</td>
         <td class="text-center" *ngIf="row.habilitado"><i style="color: green" class="fa fa-check"></i></td>

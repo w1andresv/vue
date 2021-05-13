@@ -5,8 +5,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 form-group">
           <label for="nombre">Nombre *</label>
           <input type="text" pInputText id="Nombre" formControlName="nombre" class="form-control">
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.nombre.invalid">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.nombre.invalid">
             <i class="fa fa-close"></i>
             Nombre requerido
           </div>
@@ -15,20 +14,16 @@
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label for="usuario">Usuario *</label>
-          <input type="text" pInputText id="usuario" formControlName="username" class="form-control"
-                 minlength="8">
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.username.invalid">
+          <input type="text" pInputText id="usuario" formControlName="usuarioSistema" class="form-control" minlength="8">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.usuarioSistema.invalid">
             <i class="fa fa-close"></i>
             Usuario requerido
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label for="correo">Correo</label>
-          <input type="text" id="correo" pInputText class="form-control"
-                 formControlName="email" pKeyFilter="email">
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.email.invalid">
+          <input type="text" id="correo" pInputText class="form-control" formControlName="email" pKeyFilter="email">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.email.invalid">
             <i class="fa fa-close"></i>
             Correo requerido
           </div>
@@ -37,12 +32,9 @@
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label>Rol *</label>
-          <p-dropdown [options]="listaRoles"
-                      placeholder="Seleccione"
-                      formControlName="rol" filter="filter"
+          <p-dropdown [options]="listaRoles" placeholder="Seleccione" formControlName="rol" filter="filter"
                       [style]="{'width':'100%'}"></p-dropdown>
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.rol.invalid">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.rol.invalid">
             <i class="fa fa-close"></i>
             Rol requerido
           </div>
@@ -54,7 +46,6 @@
           <div class="input-group mb-3">
             <input [type]="showPass" pInputText id="password" formControlName="password" class="form-control"
                    required>
-            <!--               pattern="(?=^.{9,}$)((?=.*\d)+(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">-->
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1" (click)="show(true)"><i class="fa {{eye}}"></i></span>
             </div>
@@ -70,13 +61,12 @@
           <div class="input-group mb-3">
             <input [type]="showConfim" pInputText id="passwordC" formControlName="passwordConfirm" class="form-control"
                    required>
-            <!--               pattern="(?=^.{9,}$)((?=.*\d)+(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">-->
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon12" (click)="show(false)"><i class="fa {{eyeNew}}"></i></span>
+              <span class="input-group-text" id="basic-addon12" (click)="show(false)"><i class="fa {{eyeNew}}">
+              </i></span>
             </div>
           </div>
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.passwordConfirm.invalid">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.passwordConfirm.invalid">
             <i class="fa fa-close"></i>
             Constraseña requerida
           </div>
@@ -91,7 +81,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="usuario && usuario.id">
+      <div class="row" *ngIf="usuario && usuario._id">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label class="control-label"></label>
           <p-checkbox formControlName="habilitado" binary="true" id="indicador" name="indicador"
