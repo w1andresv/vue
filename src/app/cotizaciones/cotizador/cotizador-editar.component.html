@@ -2,7 +2,7 @@
   <p-panel header="Nueva cotización">
     <form (ngSubmit)="onSubmit()" *ngIf="formulario && !cargando" [formGroup]="formulario">
       <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="col-sm-12 col-md-4 col-lg-4 display-column">
           <label>Fecha Creación</label>
           <label class="falso-combo">{{fechaCotizacion}}</label>
         </div>
@@ -35,7 +35,7 @@
           <label>Fecha vencimiento todo riesgo</label>
           <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
                       [style]="{'width':'100%'}" yearRange="2019:2030"
-                       [yearNavigator]="true" dateFormat="yy/mm/dd"
+                      [yearNavigator]="true" dateFormat="yy/mm/dd"
                       formControlName="fechaVencimientoPTR"></p-calendar>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 form-group">
@@ -96,8 +96,8 @@
           <p-dropdown (onChange)="listarAsesores($event)"
                       [options]="listaSedes"
                       [style]="{'width':'100%'}" filter="filter"
-                      formControlName="idSede" placeholder="Seleccione"></p-dropdown>
-          <div *ngIf="submitted && f.idSede.invalid"
+                      formControlName="sede" placeholder="Seleccione"></p-dropdown>
+          <div *ngIf="submitted && f.sede.invalid"
                class="ui-message ui-messages-error ui-corner-all">
             <i class="fa fa-close"></i>
             Sede requerido
@@ -107,9 +107,9 @@
           <label>Asesor</label>
           <p-dropdown [options]="listaAsesores"
                       [style]="{'width':'100%'}"
-                      filter="filter" formControlName="idAsesor"
+                      filter="filter" formControlName="asesor"
                       placeholder="Seleccione"></p-dropdown>
-          <div *ngIf="submitted && f.idAsesor.invalid"
+          <div *ngIf="submitted && f.asesor.invalid"
                class="ui-message ui-messages-error ui-corner-all">
             <i class="fa fa-close"></i>
             Asesor requerido
@@ -122,8 +122,8 @@
           <p-dropdown (onChange)="limpiarCalculo()"
                       [options]="listaTiposVehiculos"
                       [style]="{'width':'100%'}" filter="filter"
-                      formControlName="idTipoVehiculo" placeholder="Seleccione"></p-dropdown>
-          <div *ngIf="submitted && f.idTipoVehiculo.invalid"
+                      formControlName="tipoVehiculo" placeholder="Seleccione"></p-dropdown>
+          <div *ngIf="submitted && f.tipoVehiculo.invalid"
                class="ui-message ui-messages-error ui-corner-all">
             <i class="fa fa-close"></i>
             Tipo de vehiculo requerido
@@ -167,50 +167,47 @@
           </div>
         </div>
       </div>
-      <div class="row form-footer-buttons">
-        <div class="col-md-12">
-          <button (click)="volver()" class="ui-button-danger" icon="fa fa-arrow-left" label="Cancelar" pButton
-                  type="button"></button>
-          <button *ngIf="!guardando" icon="fa fa-plus" label="Guardar" pButton style="margin: 10px"
-                  type="submit"></button>
-          <i *ngIf="guardando" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-          <button (click)="calcular(false)" icon="fa fa-calculator" label="Calcular" pButton style="margin: 10px"
-                  type="button"></button>
+      <div class="row row-footer">
+        <div class="col-md-12 form-footer-buttons">
+          <button (click)="volver()" icon="pi pi-arrow-left" label="Cancelar" pButton type="button"></button>
+          <button *ngIf="!guardando" icon="fas fa-plus" label="Guardar" pButton type="submit"></button>
+          <button (click)="calcular(false)" icon="fa fa-calculator" label="Calcular" pButton type="button"></button>
+          <i *ngIf="guardando" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
         </div>
       </div>
-      <div *ngIf="calculado" class="row"
+      <div class="row" *ngIf="!cargando"
            style=" border: 1px solid lightgray; border-radius: 5px; background-color: ghostwhite;">
-        <div class="col-sm-12 col-md-3 col-lg-2">
-          <label>Prima anual</label>
+        <div class="col-sm-12 col-md-3 col-lg-2 display-column">
+          <label>Prima anual:</label>
           <label class="falso-combo"> {{primaAnual |currency:'USD':'symbol':'1.0-0'}}</label>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-2">
-          <label>Prima total vigencia</label>
+        <div class="col-sm-12 col-md-3 col-lg-2 display-column">
+          <label>Prima total vigencia:</label>
           <label class="falso-combo"> {{totalVigencia |currency:'USD':'symbol':'1.0-0'}}</label>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-2">
-          <label>Subtotal</label>
+        <div class="col-sm-12 col-md-3 col-lg-2 display-column">
+          <label>Subtotal:</label>
           <label class="falso-combo"> {{subTotal |currency:'USD':'symbol':'1.0-0'}}</label>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-2">
-          <label>I.V.A (19%)</label>
+        <div class="col-sm-12 col-md-3 col-lg-2 display-column">
+          <label>I.V.A (19%):</label>
           <label class="falso-combo"> {{iva |currency:'USD':'symbol':'1.0-0'}}</label>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-2">
-          <label>Total</label>
+        <div class="col-sm-12 col-md-3 col-lg-2 display-column">
+          <label>Total:</label>
           <label class="falso-combo"> {{total |currency:'USD':'symbol':'1.0-0'}}</label>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-2">
-          <label>Tasa aplicada</label>
+        <div class="col-sm-12 col-md-3 col-lg-2 display-column">
+          <label>Tasa aplicada:</label>
           <label class="falso-combo"> {{tasaAplicada }}</label>
         </div>
-        <div class="col-sm-12 col-md-3 col-lg-2">
-          <label>Días de vigencia</label>
+        <div class="col-sm-12 col-md-3 col-lg-2 display-column">
+          <label>Días de vigencia:</label>
           <label class="falso-combo"> {{diasVigencia}}</label>
         </div>
       </div>
     </form>
-    <i *ngIf="cargando" class="fa fa-circle-o-notch fa-spin fa-fw fa-2x"></i>
+    <i *ngIf="cargando" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
   </p-panel>
 
 </div>

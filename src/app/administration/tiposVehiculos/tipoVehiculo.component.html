@@ -26,15 +26,15 @@
         <td class="text-center">
           <button pButton type="button" icon="pi pi-pencil" (click)="agregar(row)"
                   pTooltip="Editar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-danger" icon="fa fa-power-off"
+          <button pButton type="button" class="ui-button-danger" icon="fas fa-power-off"
                   style="margin-left: .5em" (click)="inhabilitar(row)" *ngIf="row.habilitado"
                   pTooltip="Inhabilitar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-success" icon="fa fa-power-off"
+          <button pButton type="button" class="ui-button-success" icon="fas fa-power-off"
                   style="margin-left: .5em" (click)="habilitar(row)" *ngIf="!row.habilitado"
                   pTooltip="Habilitar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-success" icon="fa fa-users"
+          <button pButton type="button" class="ui-button-success" icon="fas fa-percent"
                   style="margin-left: .5em" (click)="verTasas(row)"
-                  pTooltip="Asesores" tooltipPosition="top"></button>
+                  pTooltip="Tasas" tooltipPosition="top"></button>
         </td>
       </tr>
     </ng-template>

@@ -254,13 +254,13 @@ export class CotizadorEditarComponent implements OnInit {
 
   listarAsesores( event, editar? ) {
     this.listaAsesores = [];
-    this.formulario.controls.idAsesor.setValue( null );
+    this.formulario.controls.asesor.setValue( null );
     this.asesorService.getByIdSedeEnabled( editar ? event : event.value ).subscribe( res => {
       res.map( x => {
         this.listaAsesores.push( { value: x._id, label: x.nombre } );
       } );
       if ( editar ) {
-        this.formulario.controls.idAsesor.setValue( this.cotizacion.asesor );
+        this.formulario.controls.asesor.setValue( this.cotizacion.asesor );
       }
     } );
   }

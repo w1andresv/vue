@@ -1,3 +1,15 @@
-.ui-calendar.ui-calendar-w-btn input {
-  width: 80% !important;
+
+button{
+  margin-left: 5px !important;
+}
+.row-footer{
+  margin-bottom: 10px;
+}
+.display-column{
+  display: flex;
+  flex-direction: column;
+}
+.falso-combo{
+  color: #4897f3;
+  font-weight: 400 !important;
 }

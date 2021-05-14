@@ -58,7 +58,7 @@ export class TasaTipoVehiculoComponent implements OnInit {
       tasa: [ tipoVehiculo ? tipoVehiculo.tasa : null, [ Validators.required ] ],
       tipoVehiculo: [ this.tipoVehiculo._id ],
       modeloDesde: [ tipoVehiculo ? tipoVehiculo.modeloDesde : null, [ Validators.required ] ],
-      modeloHasta: [ tipoVehiculo ? tipoVehiculo.modeloHasta : null ],
+      modeloHasta: [ tipoVehiculo ? tipoVehiculo.modeloHasta : null,[ Validators.required ] ],
       habilitado: [ tipoVehiculo ? tipoVehiculo.habilitado : true, [ Validators.required ] ],
     } );
   }

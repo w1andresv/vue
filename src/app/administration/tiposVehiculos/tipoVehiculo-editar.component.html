@@ -37,7 +37,7 @@
               <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 form-group">
                 <label for="tasa">Tasa *</label>
                 <input type="text" id="tasa" pInputText class="form-control"
-                       formControlName="tasa" pKeyFilter="num">
+                       formControlName="tasa" numero-decimal-reactive maxlength="5">
                 <div class="ui-message ui-messages-error ui-corner-all"
                      *ngIf="submitted && controlesTasasTemp.controls[i].controls.tasa.invalid">
                   <i class="fa fa-close"></i>
@@ -47,7 +47,7 @@
               <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 form-group">
                 <label for="modeloDesde">Modelo desde *</label>
                 <input type="text" id="modeloDesde" pInputText class="form-control"
-                       formControlName="modeloDesde" pKeyFilter="num">
+                       formControlName="modeloDesde"  numberDirective maxlength="4">
                 <div class="ui-message ui-messages-error ui-corner-all"
                      *ngIf="submitted && controlesTasasTemp.controls[i].controls.modeloDesde.invalid">
                   <i class="fa fa-close"></i>
@@ -57,7 +57,7 @@
               <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 form-group">
                 <label for="modeloHasta">Modelo hasta *</label>
                 <input type="text" id="modeloHasta" pInputText class="form-control"
-                       formControlName="modeloHasta" pKeyFilter="num">
+                       formControlName="modeloHasta" numberDirective maxlength="4">
                 <div class="ui-message ui-messages-error ui-corner-all"
                      *ngIf="submitted && controlesTasasTemp.controls[i].controls.modeloHasta.invalid">
                   <i class="fa fa-close"></i>

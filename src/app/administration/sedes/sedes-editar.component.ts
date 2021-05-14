@@ -78,7 +78,7 @@ export class SedesEditarComponent implements OnInit {
       } else {
         this.sedeService.agregar( data ).subscribe( res => {
           for ( const item of listaAsesores ) {
-            item.idSede = res._id;
+            item.sede = res._id;
             this.asesorService.agregar( item ).subscribe();
           }
           this.dismiss.emit( 'T' );
