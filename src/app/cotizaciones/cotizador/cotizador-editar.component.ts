@@ -72,10 +72,10 @@ export class CotizadorEditarComponent implements OnInit {
       this.sedeService.getAllEnabled()
     ).subscribe( ( [ tiposVehiculos, sedes ] ) => {
       tiposVehiculos.map( x => {
-        this.listaTiposVehiculos.push( { value: x.id, label: x.nombre } );
+        this.listaTiposVehiculos.push( { value: x._id, label: x.nombre } );
       } );
       sedes.map( x => {
-        this.listaSedes.push( { value: x.id, label: x.nombre } );
+        this.listaSedes.push( { value: x._id, label: x.nombre } );
       } );
       if ( this.cotizacion ) {
         this.cargarFormulario( this.cotizacion );
@@ -117,7 +117,7 @@ export class CotizadorEditarComponent implements OnInit {
       second: 0
     } ).format();
     this.formulario = this.formBuilder.group( {
-      id: [ cotizacion ? cotizacion.id : null ],
+      _id: [ cotizacion ? cotizacion._id : null ],
       fechaCotizacion: [ cotizacion ? cotizacion.fechaCotizacion : null ],
       fechaVencimientoSoat: [ cotizacion ? new Date( cotizacion.fechaVencimientoSoat ) : new Date( fechaCustom ) ],
       fechaVencimientoPTR: [ cotizacion ? new Date( cotizacion.fechaVencimientoPTR ) : new Date( fechaCustom ) ],
@@ -127,16 +127,16 @@ export class CotizadorEditarComponent implements OnInit {
       numeroDocumento: [ cotizacion ? cotizacion.numeroDocumento : null, [ Validators.required ] ],
       celular: [ cotizacion ? cotizacion.celular : null, [ Validators.required ] ],
       correo: [ cotizacion ? cotizacion.correo : null, [ Validators.required ] ],
-      idAsesor: [ cotizacion ? cotizacion.idAsesor : null, [ Validators.required ] ],
-      idSede: [ cotizacion ? cotizacion.idSede : null, [ Validators.required ] ],
+      asesor: [ cotizacion ? cotizacion.asesor : null, [ Validators.required ] ],
+      sede: [ cotizacion ? cotizacion.sede : null, [ Validators.required ] ],
       placa: [ cotizacion ? cotizacion.placa : null, [ Validators.required ] ],
       modelo: [ cotizacion ? cotizacion.modelo : null, [ Validators.required ] ],
-      idTipoVehiculo: [ cotizacion ? cotizacion.idTipoVehiculo : null, [ Validators.required ] ],
+      tipoVehiculo: [ cotizacion ? cotizacion.tipoVehiculo : null, [ Validators.required ] ],
       idUsuario: [ cotizacion ? cotizacion.idUsuario : null ],
       valorAsegurado: [ cotizacion ? cotizacion.valorAsegurado : null, [ Validators.required ] ]
     } );
     if ( cotizacion ) {
-      this.listarAsesores( this.cotizacion.idSede, true );
+      this.listarAsesores( this.cotizacion.sede, true );
     }
   }
 
@@ -191,7 +191,7 @@ export class CotizadorEditarComponent implements OnInit {
   calcular( guardar ) {
     this.calculando = true;
     this.obtenerDatos();
-    this.tasaTipoVehiculoService.getByIdTipoVehiculo( this.cotizacion.idTipoVehiculo ).subscribe( res => {
+    this.tasaTipoVehiculoService.getByIdTipoVehiculo( this.cotizacion.tipoVehiculo ).subscribe( res => {
       const temp = res.filter( x => this.cotizacion.modelo <= x.modeloHasta
         && this.cotizacion.modelo >= ( x.modeloDesde ? x.modeloDesde : 0 ) );
       const lista = res.sort( ( a, b ) => {
@@ -232,7 +232,7 @@ export class CotizadorEditarComponent implements OnInit {
     this.calculando = false;
     this.calculado = true;
     if ( guardar ) {
-      if ( this.cotizacion.id ) {
+      if ( this.cotizacion._id ) {
         this.cotizacionService.actualizar( this.cotizacion ).subscribe( rest => {
           this.dismiss.emit( 'TABLA' );
         }, error => {
@@ -257,10 +257,10 @@ export class CotizadorEditarComponent implements OnInit {
     this.formulario.controls.idAsesor.setValue( null );
     this.asesorService.getByIdSedeEnabled( editar ? event : event.value ).subscribe( res => {
       res.map( x => {
-        this.listaAsesores.push( { value: x.id, label: x.nombre } );
+        this.listaAsesores.push( { value: x._id, label: x.nombre } );
       } );
       if ( editar ) {
-        this.formulario.controls.idAsesor.setValue( this.cotizacion.idAsesor );
+        this.formulario.controls.idAsesor.setValue( this.cotizacion.asesor );
       }
     } );
   }

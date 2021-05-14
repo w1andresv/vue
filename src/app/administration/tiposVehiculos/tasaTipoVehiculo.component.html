@@ -23,7 +23,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 form-group">
               <label for="modeloDesde">Modelo desde *</label>
               <input type="text" id="modeloDesde" pInputText class="form-control"
-                     formControlName="modeloDesde" upper-case>
+                     formControlName="modeloDesde"  pKeyFilter="num">
               <div class="ui-message ui-messages-error ui-corner-all"
                    *ngIf="submitted && f.modeloDesde.invalid">
                 <i class="fa fa-close"></i>
@@ -33,7 +33,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 form-group">
               <label for="modeloHasta">Modelo Hasta </label>
               <input type="text" id="modeloHasta" pInputText class="form-control"
-                     formControlName="modeloHasta" upper-case>
+                     formControlName="modeloHasta" pKeyFilter="num">
               <div class="ui-message ui-messages-error ui-corner-all"
                    *ngIf="submitted && f.modeloHasta.invalid">
                 <i class="fa fa-close"></i>
@@ -65,8 +65,8 @@
     <ng-template pTemplate="body" let-row>
       <tr [pSelectableRow]="row">
         <td class="text-center">{{row.tasa }}</td>
-        <td class="text-center">{{row.modeloDesde |uppercase}}</td>
-        <td class="text-center">{{row.modeloHasta |uppercase}}</td>
+        <td class="text-center">{{row.modeloDesde }}</td>
+        <td class="text-center">{{row.modeloHasta}}</td>
         <td class="text-center" *ngIf="row.habilitado"><i style="color: green" class="fa fa-check"></i></td>
         <td class="text-center" *ngIf="!row.habilitado"><i style="color: red" class="fa fa-times"></i></td>
         <td class="text-center">

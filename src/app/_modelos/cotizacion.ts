@@ -1,19 +1,19 @@
 export interface Cotizacion {
-  id: string;
+  _id: string;
   tomador: string;
   fechaCotizacion: string;
   fechaInicioVigencia: string;
   fechaFinVigencia: string;
   asesor: string;
   idAsesor: string;
+  sedeName: string;
   sede: string;
-  idSede: string;
-  idUsuario: string;
+  usuario: string;
   placa: string;
   modelo: string;
   correo: string;
   celular: string;
-  idTipoVehiculo: string;
+  tipoVehiculo: string;
   numeroDocumento: string;
   valorAsegurado: number;
   primaAnual: number;

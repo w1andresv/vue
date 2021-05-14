@@ -89,13 +89,13 @@ export class CotizadorComponent implements OnInit {
   generarPdf( cotizacion ) {
     this.generandoPdf = cotizacion.id;
     forkJoin(
-      this.tipoVehiculoService.getById( cotizacion.idTipoVehiculo ),
-      this.asesorService.getById( cotizacion.idAsesor ),
-      this.sedeService.getById( cotizacion.idSede )
+      this.tipoVehiculoService.getById( cotizacion.tipoVehiculo ),
+      this.asesorService.getById( cotizacion.asesor ),
+      this.sedeService.getById( cotizacion.sede )
     ).subscribe( ( [ tipoVehiculo, asesor, sede ] ) => {
-      cotizacion.tipoVehiculo = tipoVehiculo.nombre;
-      cotizacion.asesor = asesor.nombre;
-      cotizacion.sede = sede.nombre;
+      cotizacion.tipoVehiculoName = tipoVehiculo.nombre;
+      cotizacion.asesorName = asesor.nombre;
+      cotizacion.sedeName = sede.nombre;
       forkJoin(
         this.generarPdfService.obtenerImagen( 'gip', 'png' ),
         this.generarPdfService.obtenerImagen( 'equidad', 'png' ),
@@ -146,9 +146,9 @@ export class CotizadorComponent implements OnInit {
         }
         const listaExport = [];
         cotizaciones.map( x => {
-          const tipo = tiposVehiculos.find( v => v.id === x.idTipoVehiculo );
-          const asesor = asesores.find( v => v._id === x.idAsesor );
-          const usuario = usuarios.find( v => v._id === x.idUsuario );
+          const tipo = tiposVehiculos.find( v => v.id === x.tipoVehiculo );
+          const asesor = asesores.find( v => v._id === x.asesor );
+          const usuario = usuarios.find( v => v._id === x.usuario );
           const sede = sedes.find( v => v._id === x.idSede );
           const obj = {
             numeroDocumento: x.numeroDocumento.toString(),

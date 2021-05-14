@@ -94,11 +94,11 @@ export class GenerarPdfService {
             ],
             [
               { content: 'Asesor', colSpan: 2, styles: { halign: 'left', fontStyle: 'bold' } },
-              { content: cotizacion.asesor, colSpan: 4, styles: { halign: 'right' } }
+              { content: cotizacion.asesorName, colSpan: 4, styles: { halign: 'right' } }
             ],
             [
               { content: 'Sede', colSpan: 2, styles: { halign: 'left', fontStyle: 'bold' } },
-              { content: cotizacion.sede, colSpan: 8, styles: { halign: 'right' } },
+              { content: cotizacion.sedeName, colSpan: 8, styles: { halign: 'right' } },
               { content: '', colSpan: 2, styles: { halign: 'right' } }
             ],
             [
@@ -114,7 +114,7 @@ export class GenerarPdfService {
             ],
             [
               {
-                content: cotizacion.tipoVehiculo,
+                content: cotizacion.tipoVehiculoName,
                 colSpan: 2,
                 styles: { halign: 'left', textColor: '#0ec254', fontStyle: 'bold' }
               },
