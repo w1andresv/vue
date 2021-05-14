@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SedeService } from '../../_services/sede.service';
-import { Sede } from '../../modelos/sede';
+import { Sede } from '../../_modelos/sede';
 
 @Component( {
     selector: 'app-sedes',

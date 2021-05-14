@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <p-table [columns]="cols" [value]="listaAsesores" [paginator]="true" [rows]="10" [responsive]="true" #dt>
+    <ng-template pTemplate="caption">
+      <div class="ui-helper-clearfix" style="text-align: left">
+        <button pButton (click)="agregar()"
+                label="Agregar" icon="fa fa-plus"></button>
+        <input type="text" pInputText size="50" placeholder="Buscar" style="float:right; width: 50%"
+               (input)="dt.filterGlobal($event.target.value, 'contains')">
+      </div>
+      <div *ngIf="show==='E'" style="text-align: left">
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()" *ngIf="formulario">
+          <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 form-group">
+              <label for="tasa">Tasa *</label>
+              <input type="text" id="tasa" pInputText class="form-control"
+                     formControlName="tasa" pKeyFilter="num">
+              <div class="ui-message ui-messages-error ui-corner-all"
+                   *ngIf="submitted && f.tasa.invalid">
+                <i class="fa fa-close"></i>
+                Tasa requerida
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 form-group">
+              <label for="modeloDesde">Modelo desde *</label>
+              <input type="text" id="modeloDesde" pInputText class="form-control"
+                     formControlName="modeloDesde" upper-case>
+              <div class="ui-message ui-messages-error ui-corner-all"
+                   *ngIf="submitted && f.modeloDesde.invalid">
+                <i class="fa fa-close"></i>
+                Modelo desde requerido
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 form-group">
+              <label for="modeloHasta">Modelo Hasta </label>
+              <input type="text" id="modeloHasta" pInputText class="form-control"
+                     formControlName="modeloHasta" upper-case>
+              <div class="ui-message ui-messages-error ui-corner-all"
+                   *ngIf="submitted && f.modeloHasta.invalid">
+                <i class="fa fa-close"></i>
+                Modelo hasta requerido
+              </div>
+            </div>
+          </div>
+          <div class="row form-footer-buttons" style="margin-top: 0px !important;">
+            <div class="col-12">
+              <button pButton type="button" class="ui-button-danger" icon="fa fa-close"
+                      (click)="mostrarOcultar('T', null)"
+                      label="Cancelar"></button>
+              <button pButton type="submit" style="margin-right: .5em; margin-left: .5em" icon="fa fa-floppy-o"
+                      label="Guardar"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [pSortableColumnDisabled]="!col.sort"
+            class="text-center">
+          {{col.header}}
+          <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [pSelectableRow]="row">
+        <td class="text-center">{{row.tasa }}</td>
+        <td class="text-center">{{row.modeloDesde |uppercase}}</td>
+        <td class="text-center">{{row.modeloHasta |uppercase}}</td>
+        <td class="text-center" *ngIf="row.habilitado"><i style="color: green" class="fa fa-check"></i></td>
+        <td class="text-center" *ngIf="!row.habilitado"><i style="color: red" class="fa fa-times"></i></td>
+        <td class="text-center">
+          <button pButton type="button" icon="pi pi-pencil" (click)="agregar(row)"
+                  pTooltip="Editar" tooltipPosition="top"></button>
+          <button pButton type="button" class="ui-button-danger" icon="fa fa-power-off"
+                  style="margin-left: .5em" (click)="inhabilitar(row)" *ngIf="row.habilitado"
+                  pTooltip="Inhabilitar" tooltipPosition="top"></button>
+          <button pButton type="button" class="ui-button-success" icon="fa fa-power-off"
+                  style="margin-left: .5em" (click)="habilitar(row)" *ngIf="!row.habilitado"
+                  pTooltip="Habilitar" tooltipPosition="top"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length">
+          no hay registros
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="row ">
+  <div class="col-12 form-footer-buttons">
+    <button pButton type="button" class="ui-button-danger" icon="fa fa-arrow-left" (click)="atras()"
+            label="Atras"></button>
+  </div>
+</div>

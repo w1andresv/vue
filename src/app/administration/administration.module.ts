@@ -10,6 +10,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SedesComponent } from './sedes/sedes.component';
 import { SedesEditarComponent } from './sedes/sedes-editar.component';
 import { AsesoresComponent } from './sedes/asesores.component';
+import { TipoVehiculoComponent } from './tiposVehiculos/tipoVehiculo.component';
+import { TasaTipoVehiculoComponent } from './tiposVehiculos/tasaTipoVehiculo.component';
+import { TipoVehiculoEditarComponent } from './tiposVehiculos/tipoVehiculo-editar.component';
 
 
 @NgModule( {
@@ -19,7 +22,10 @@ import { AsesoresComponent } from './sedes/asesores.component';
     UsuariosEditarComponent,
     SedesComponent,
     SedesEditarComponent,
-    AsesoresComponent
+    AsesoresComponent,
+    TipoVehiculoComponent,
+    TasaTipoVehiculoComponent,
+    TipoVehiculoEditarComponent
   ],
   exports: [],
     imports: [

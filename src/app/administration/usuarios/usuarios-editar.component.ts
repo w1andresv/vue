@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from '../../modelos/usuario';
+import { Usuario } from '../../_modelos/usuario';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { UsuarioService } from '../../_services/usuario.service';
 

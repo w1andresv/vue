@@ -83,11 +83,7 @@ export class BreadcrumbComponent implements OnInit, OnChanges, OnDestroy {
     this.breadcrumbService.addFriendlyNameForRoute( '/adm/usuarios', 'Usuarios' );
     this.breadcrumbService.addFriendlyNameForRoute( '/adm/sedes', 'Sedes' );
     this.breadcrumbService.addFriendlyNameForRoute( '/cot/cotizador', 'Cotizaciones' );
-    // this.breadcrumbService.addFriendlyNameForRoute( '/citas/tickets/edit', 'Nueva' );
-    // this.breadcrumbService.addFriendlyNameForRoute( '/citas/tickets/edit', 'Detalle' );
-    // this.breadcrumbService.hideRouteRegex( '^/citas/tickets/edit/[0-9]*' );
-    // this.breadcrumbService.addFriendlyNameForRoute( '/asi/constantes/actualizar', 'Actualizar' );
-    // this.breadcrumbService.hideRouteRegex( '^/asi/constantes/actualizar/[0-9]*' );
+    this.breadcrumbService.addFriendlyNameForRoute( '/adm/tipos-vehiculos', 'Tipos vehiculos' );
   }
 
 }

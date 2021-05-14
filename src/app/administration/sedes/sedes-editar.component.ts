@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Sede } from '../../modelos/sede';
+import { Sede } from '../../_modelos/sede';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SedeService } from '../../_services/sede.service';
 import { AsesorService } from '../../_services/asesor.service';

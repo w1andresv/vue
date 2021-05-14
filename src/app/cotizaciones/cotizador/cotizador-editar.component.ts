@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Cotizacion } from '../../modelos/cotizacion';
+import { Cotizacion } from '../../_modelos/cotizacion';
 import * as moment from 'moment/moment';
 import { TipoVehiculoService } from '../../_services/tipoVehiculo.service';
 import { TasaTipoVehiculoService } from '../../_services/tasaTipoVehiculo.service';

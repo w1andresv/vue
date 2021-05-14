@@ -17,26 +17,32 @@
                    with font-awesome or any other icon font library -->
               <li class="nav-item">
                 <a [routerLinkActive]="['active']" [routerLink]="['dashboard']" class="nav-link">
-                  <i class="nav-icon fa fa-home"></i>
+                  <i class="nav-icon fas fa-home"></i>
                   <p> Dashboard </p>
                 </a>
               </li>
               <li class="nav-item" >
                 <a [routerLinkActive]="['active']" [routerLink]="['cot/cotizador']" class="nav-link">
-                  <i class="nav-icon fa fa-calculator"></i>
+                  <i class="nav-icon fas fa-calculator"></i>
                   <p>Cotizaciones</p>
                 </a>
               </li>
               <li *ngIf="usuario&&usuario.rol==='ADMIN'" class="nav-item">
                 <a [routerLinkActive]="['active']" [routerLink]="['adm/usuarios']" class="nav-link">
-                  <i class="nav-icon fa fa-users"></i>
+                  <i class="nav-icon fas fa-users"></i>
                   <p> Usuarios </p>
                 </a>
               </li>
               <li  class="nav-item">
                 <a [routerLinkActive]="['active']" [routerLink]="['adm/sedes']" class="nav-link">
-                  <i class="nav-icon fa fa-university"></i>
+                  <i class="nav-icon fas fa-university"></i>
                   <p> Sedes </p>
+                </a>
+              </li>
+              <li  class="nav-item">
+                <a [routerLinkActive]="['active']" [routerLink]="['adm/tipos-vehiculos']" class="nav-link">
+                  <i class="nav-icon fas fa-car-side"></i>
+                  <p> Tipos vehiculos </p>
                 </a>
               </li>
               <li class="nav-header">SESION</li>

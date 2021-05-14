@@ -3,17 +3,19 @@ import { Sede } from '../../_modelos/sede';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AsesorService } from '../../_services/asesor.service';
 import { Asesor } from '../../_modelos/asesor';
+import { TipoVehiculo } from '../../_modelos/tipoVehiculo';
+import { TasaTipoVehiculoService } from '../../_services/tasaTipoVehiculo.service';
 
 @Component( {
-  selector: 'app-asesores',
-  templateUrl: './asesores.component.html',
-  styleUrls: [ './asesores.component.css' ]
+  selector: 'app-tasaTipoVehiculo',
+  templateUrl: './tasaTipoVehiculo.component.html',
+  styleUrls: [ './tasaTipoVehiculo.component.css' ]
 } )
-export class AsesoresComponent implements OnInit {
+export class TasaTipoVehiculoComponent implements OnInit {
 
 
   @Input()
-  sede: Sede;
+  tipoVehiculo: TipoVehiculo;
   @Output()
   dismiss: EventEmitter<string> = new EventEmitter<string>();
   formulario: FormGroup;
@@ -24,15 +26,19 @@ export class AsesoresComponent implements OnInit {
   cols: any;
 
   constructor( private formBuilder: FormBuilder,
-               private asesorService: AsesorService ) {
+               private tasaTipoVehiculoService: TasaTipoVehiculoService ) {
+  }
+
+  get f() {
+    return this.formulario.controls;
   }
 
   ngOnInit() {
     this.cargarLista();
     this.cols = [
-      { field: 'numeroDocumento', header: 'Numero documento' },
-      { field: 'nombre', header: 'Nombre' },
-      { field: 'cargo', header: 'cargo' },
+      { field: 'tasa', header: 'Tasa' },
+      { field: 'modeloDesde', header: 'Modelo desde' },
+      { field: 'modeloHasta', header: 'Modelo hasta' },
       { field: 'habilitado', header: 'Habilitado' },
       { field: 'def', header: 'Acciones' },
     ];
@@ -40,35 +46,29 @@ export class AsesoresComponent implements OnInit {
 
   cargarLista() {
     this.listaAsesores = [];
-    this.asesorService.getByIdSede( this.sede._id ).subscribe( res => {
+    this.tasaTipoVehiculoService.getByIdTipoVehiculo( this.tipoVehiculo._id ).subscribe( res => {
       this.listaAsesores = res;
     } );
-    this.cargarFormulario(null)
+    this.cargarFormulario( null );
   }
 
-  cargarFormulario( asesor ) {
+  cargarFormulario( tipoVehiculo ) {
     this.formulario = this.formBuilder.group( {
-      _id: [ asesor ? asesor._id : null ],
-      numeroDocumento: [ asesor ? asesor.numeroDocumento : null, [ Validators.required ] ],
-      idSede: [ this.sede._id ],
-      nombre: [ asesor ? asesor.nombre : null, [ Validators.required ] ],
-      cargo: [ asesor ? asesor.cargo : null, [ Validators.required ] ],
-      habilitado: [ asesor ? asesor.habilitado : true, [ Validators.required ] ],
-      codigoCargo: [ asesor ? asesor.codigoCargo : null ],
+      _id: [ tipoVehiculo ? tipoVehiculo._id : null ],
+      tasa: [ tipoVehiculo ? tipoVehiculo.tasa : null, [ Validators.required ] ],
+      tipoVehiculo: [ this.tipoVehiculo._id ],
+      modeloDesde: [ tipoVehiculo ? tipoVehiculo.modeloDesde : null, [ Validators.required ] ],
+      modeloHasta: [ tipoVehiculo ? tipoVehiculo.modeloHasta : null ],
+      habilitado: [ tipoVehiculo ? tipoVehiculo.habilitado : true, [ Validators.required ] ],
     } );
-  }
-
-  get f() {
-    return this.formulario.controls;
   }
 
   onSubmit() {
     this.submitted = true;
     const data = this.formulario.value;
     if ( this.formulario.valid ) {
-      data.codigoCargo = data.cargo.length > 6 ? data.cargo.substring( 0, 6 ) : data.cargo;
       if ( data._id ) {
-        this.asesorService.actualizar( data ).subscribe( res => {
+        this.tasaTipoVehiculoService.actualizar( data ).subscribe( res => {
           this.mostrarOcultar( 'T', null );
           this.cargarLista();
         }, error => {
@@ -76,7 +76,7 @@ export class AsesoresComponent implements OnInit {
         } );
         this.submitted = false;
       } else {
-        this.asesorService.agregar( data ).subscribe( res => {
+        this.tasaTipoVehiculoService.agregar( data ).subscribe( res => {
           this.mostrarOcultar( 'T', null );
           this.cargarLista();
         }, error => {
@@ -105,7 +105,7 @@ export class AsesoresComponent implements OnInit {
   }
 
   actualizar( asesor ) {
-    this.asesorService.actualizar( asesor ).subscribe( res => {
+    this.tasaTipoVehiculoService.actualizar( asesor ).subscribe( res => {
       this.cargarLista();
     }, error => {
       console.log( 'error al guardar' );

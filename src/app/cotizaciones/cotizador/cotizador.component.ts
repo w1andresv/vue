@@ -7,7 +7,7 @@ import * as moment from 'moment/moment';
 import { Table } from 'primeng/table';
 import { SedeService } from '../../_services/sede.service';
 import { AsesorService } from '../../_services/asesor.service';
-import { Cotizacion } from '../../modelos/cotizacion';
+import { Cotizacion } from '../../_modelos/cotizacion';
 import { UsuarioService } from "../../_services/usuario.service";
 
 // @ts-ignore

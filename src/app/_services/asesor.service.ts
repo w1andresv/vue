@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { AppSettings } from '../../proyect.conf';
 import { Observable } from 'rxjs';
-import { Asesor } from '../modelos/asesor';
+import { Asesor } from '../_modelos/asesor';
 
 @Injectable( {
   providedIn: 'root'

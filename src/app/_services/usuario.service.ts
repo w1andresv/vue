@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+  import { Injectable } from '@angular/core';
 import { AppSettings } from '../../proyect.conf';
 import { AuthenticationService } from './authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Usuario } from '../modelos/usuario';
+import { Usuario } from '../_modelos/usuario';
 
 @Injectable( {
   providedIn: 'root'

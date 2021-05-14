@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { AppSettings } from '../../proyect.conf';
-import { Usuario } from '../modelos/usuario';
 import { Observable } from 'rxjs';
-import { Sede } from '../modelos/sede';
+import { Sede } from '../_modelos/sede';
 
 @Injectable( {
   providedIn: 'root'
