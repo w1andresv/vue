@@ -48,6 +48,20 @@
       </div>
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label>Fecha nacimiento</label>
+          <p-calendar [locale]="es" [monthNavigator]="true" [readonlyInput]="true" [showIcon]="true"
+                      [style]="{'width':'100%'}" yearRange="1900:2030"
+                      [yearNavigator]="true" dateFormat="yy/mm/dd"
+                      formControlName="fechaNacimiento"></p-calendar>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+          <label for="aseguradoraactual">Aseguradora actual todo riesgo</label>
+          <input class="form-control" formControlName="aseguradoraActualTodoRiesgo" id="aseguradoraactual"
+                 pInputText type="text" upper-case>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 form-group">
           <label for="tomador">Tomador</label>
           <input class="form-control" formControlName="tomador" id="tomador" pInputText type="text"
                  upper-case>
@@ -175,7 +189,7 @@
           <i *ngIf="guardando" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
         </div>
       </div>
-      <div class="row" *ngIf="!cargando"
+      <div class="row" *ngIf="calculado"
            style=" border: 1px solid lightgray; border-radius: 5px; background-color: ghostwhite;">
         <div class="col-sm-12 col-md-3 col-lg-2 display-column">
           <label>Prima anual:</label>

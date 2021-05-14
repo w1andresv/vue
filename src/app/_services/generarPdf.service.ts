@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { jsPDF } from 'jspdf';
+import * as jsPDF  from 'jspdf';
 import 'jspdf-autotable'
 import { forkJoin, Observable } from 'rxjs';
 import * as moment from 'moment/moment';

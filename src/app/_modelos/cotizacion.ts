@@ -4,6 +4,8 @@ export interface Cotizacion {
   fechaCotizacion: string;
   fechaInicioVigencia: string;
   fechaFinVigencia: string;
+  fechaNacimiento: string;
+  aseguradoraActualTodoRiesgo: string;
   asesor: string;
   idAsesor: string;
   sedeName: string;

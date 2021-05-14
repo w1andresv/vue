@@ -119,6 +119,8 @@ export class CotizadorEditarComponent implements OnInit {
     this.formulario = this.formBuilder.group( {
       _id: [ cotizacion ? cotizacion._id : null ],
       fechaCotizacion: [ cotizacion ? cotizacion.fechaCotizacion : null ],
+      fechaNacimiento: [ cotizacion ? new Date( cotizacion.fechaNacimiento ) : null ],
+      aseguradoraActualTodoRiesgo: [ cotizacion ? cotizacion.aseguradoraActualTodoRiesgo:''  ],
       fechaVencimientoSoat: [ cotizacion ? new Date( cotizacion.fechaVencimientoSoat ) : new Date( fechaCustom ) ],
       fechaVencimientoPTR: [ cotizacion ? new Date( cotizacion.fechaVencimientoPTR ) : new Date( fechaCustom ) ],
       fechaInicioVigencia: [ cotizacion ? new Date( cotizacion.fechaInicioVigencia ) : new Date( fechaInicio ), [ Validators.required ] ],
@@ -236,13 +238,13 @@ export class CotizadorEditarComponent implements OnInit {
         this.cotizacionService.actualizar( this.cotizacion ).subscribe( rest => {
           this.dismiss.emit( 'TABLA' );
         }, error => {
-          console.log( 'A ocurrido un error al guardar' );
+          console.log( error );
         } );
       } else {
         this.cotizacionService.agregar( this.cotizacion ).subscribe( rest => {
           this.dismiss.emit( 'TABLA' );
         }, error => {
-          console.log( 'A ocurrido un error al guardar' );
+          console.log(error );
         } );
       }
     }

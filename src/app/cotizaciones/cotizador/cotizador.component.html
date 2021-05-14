@@ -1,15 +1,19 @@
 <div *ngIf="mostrar==='TABLA'" class="container-fluid">
   <div class="row">
-    <div class="col-12 display-row">
+    <div class="col-3">
       <button pButton type="button" icon="fa fa-plus" label="Nueva" (click)="crear()"
               style="margin-right: 0.5em;"></button>
       <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()"
               style="margin-right: 0.5em;" class="ui-button-success"></button>
+    </div>
+    <div class="col-4">
       <p-calendar [(ngModel)]="fechas" [locale]="es" dateFormat="yy/mm/dd"
                   placeholder="fecha inicio-fin cotización" selectionMode="range" showButtonBar="true"
                   [monthNavigator]="true" [yearNavigator]="true" [yearRange]="rango" (onSelect)="filtroFechas()"
                   (onClearClick)="limpiarFiltroFechas()"
                   [readonlyInput]="true" [showIcon]="true"></p-calendar>
+    </div>
+    <div class="col-4">
       <input type="text" pInputText size="40" placeholder="Buscar"
              (input)="dt.filterGlobal($event.target.value, 'contains')" [(ngModel)]="busqueda">
     </div>
@@ -41,10 +45,10 @@
               <div class="btn-group" role="group">
                 <button pButton type="button" icon="pi pi-pencil" (click)="editar(row)"
                         pTooltip="Editar" tooltipPosition="top"></button>
-                <button type="button" class="ui-button-success" icon="fa fa-file-pdf-o" data-toggle="tooltip"
+                <button type="button" class="ui-button-success" icon="pi pi-file-pdf" data-toggle="tooltip"
                         pTooltip="Ver PDF" tooltipPosition="top" style="margin-left: .5em"
                         pButton (click)="generarPdf(row)" *ngIf="generandoPdf!==row.id"></button>
-                <i class="fa fa-circle-o-notch fa-spin" style="margin-top: 10px; padding-top: 4px;margin-left: 8px" *ngIf="generandoPdf===row.id"></i>
+                <i *ngIf="generandoPdf===row.id" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
               </div>
             </td>
           </tr>
