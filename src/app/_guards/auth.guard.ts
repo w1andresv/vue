@@ -7,6 +7,10 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class AuthGuard implements CanActivate {
 
   usuario: any;
+  rutasUser = [
+    'cotizador',
+    'access-denied',
+    'dashboard' ];
 
   constructor( private router: Router,
                private authenticationService: AuthenticationService ) {
@@ -16,8 +20,9 @@ export class AuthGuard implements CanActivate {
   async canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
     if ( this.authenticationService.isLogin() ) {
       const url: string = route.url[ 0 ].path;
-      if ( this.usuario.rol !== 'ADMIN' && url !== 'cotizador' ) {
-        this.router.navigate( [ '/cotizador' ] );
+      const data = this.rutasUser.find( x => x === url );
+      if ( this.usuario.rol !== 'ADMIN' && !data ) {
+        this.router.navigate( [ '/access-denied' ] );
         return false;
       } else {
         return true;
