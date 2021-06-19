@@ -22,8 +22,8 @@ export class UsuariosEditarComponent implements OnInit {
   usuario: Usuario;
   usuarioLogeado: any;
   listaRoles: any[] = [];
-  eye = 'fa-eye-slash';
-  eyeNew = 'fa-eye-slash';
+  eye = 'pi-eye-slash';
+  eyeNew = 'pi-eye-slash';
   showPass = 'password';
   showConfim = 'password';
 
@@ -61,18 +61,18 @@ export class UsuariosEditarComponent implements OnInit {
     if ( type ) {
       if ( this.showPass === 'password' ) {
         this.showPass = 'text';
-        this.eye = 'fa-eye';
+        this.eye = 'pi-eye';
       } else {
         this.showPass = 'password';
-        this.eye = 'fa-eye-slash';
+        this.eye = 'pi-eye-slash';
       }
     } else {
       if ( this.showConfim === 'password' ) {
         this.showConfim = 'text';
-        this.eyeNew = 'fa-eye';
+        this.eyeNew = 'pi-eye';
       } else {
         this.showConfim = 'password';
-        this.eyeNew = 'fa-eye-slash';
+        this.eyeNew = 'pi-eye-slash';
       }
     }
 

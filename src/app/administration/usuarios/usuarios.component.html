@@ -23,15 +23,15 @@
         <td class="text-center">{{row.usuarioSistema }}</td>
         <td class="text-center">{{row.email |uppercase}}</td>
         <td class="text-center">{{row.rol |uppercase}}</td>
-        <td class="text-center" *ngIf="row.habilitado"><i style="color: green" class="fa fa-check"></i></td>
-        <td class="text-center" *ngIf="!row.habilitado"><i style="color: red" class="fa fa-times"></i></td>
+        <td class="text-center" *ngIf="row.habilitado"><i style="color: green" class="pi pi-check"></i></td>
+        <td class="text-center" *ngIf="!row.habilitado"><i style="color: red" class="pi pi-times"></i></td>
         <td class="text-center">
           <button pButton type="button" icon="pi pi-pencil" (click)="agregar(row)"
                   pTooltip="Editar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-danger" icon="fa fa-power-off"
+          <button pButton type="button" class="p-button-danger" icon="pi pi-power-off"
                   style="margin-left: .5em" (click)="inhabilitar(row)" *ngIf="row.habilitado"
                   pTooltip="Inhabilitar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-success" icon="fa fa-power-off"
+          <button pButton type="button" class="p-button-success" icon="pi pi-power-off"
                   style="margin-left: .5em" (click)="habilitar(row)" *ngIf="!row.habilitado"
                   pTooltip="Habilitar" tooltipPosition="top"></button>
         </td>

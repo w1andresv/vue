@@ -6,9 +6,7 @@
           <label for="usuario">Código *</label>
           <input type="text" pInputText id="usuario" formControlName="codigo" class="form-control"
                  minlength="2" pKeyFilter="alphanum" upper-case>
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.codigo.invalid">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.codigo.invalid">
             Código requerido
           </div>
         </div>
@@ -16,9 +14,7 @@
           <label for="correo">Nombre *</label>
           <input type="text" id="correo" pInputText class="form-control"
                  formControlName="nombre" upper-case>
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.nombre.invalid">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.nombre.invalid">
             Nombre requerido
           </div>
         </div>
@@ -38,9 +34,8 @@
                 <label for="correo">Numero documento *</label>
                 <input type="text" id="numerodocumento" pInputText class="form-control"
                        formControlName="numeroDocumento" pKeyFilter="num">
-                <div class="ui-message ui-messages-error ui-corner-all"
+                <div class="p-error"
                      *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.numeroDocumento.invalid">
-                  <i class="fa fa-close"></i>
                   Numero documento requerido
                 </div>
               </div>
@@ -48,9 +43,7 @@
                 <label for="correo">Nombre *</label>
                 <input type="text" id="nombre" pInputText class="form-control"
                        formControlName="nombre" upper-case>
-                <div class="ui-message ui-messages-error ui-corner-all"
-                     *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.nombre.invalid">
-                  <i class="fa fa-close"></i>
+                <div class="p-error" *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.nombre.invalid">
                   Nombre requerido
                 </div>
               </div>
@@ -58,16 +51,14 @@
                 <label for="correo">Cargo *</label>
                 <input type="text" id="cargo" pInputText class="form-control"
                        formControlName="cargo" upper-case>
-                <div class="ui-message ui-messages-error ui-corner-all"
-                     *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.cargo.invalid">
-                  <i class="fa fa-close"></i>
+                <div class="p-error" *ngIf="submitted && controlesAsesoresTemp.controls[i].controls.cargo.invalid">
                   Cargo requerido
                 </div>
               </div>
               <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 form-group">
-                <button pButton type="button" icon="fa fa-plus" style="margin-top: 28px;" (click)="agregarAsesor()"
+                <button pButton type="button" icon="pi pi-plus" (click)="agregarAsesor()"
                         *ngIf="i==0" pTooltip="Agregar" tooltipPosition="top"></button>
-                <button pButton type="button" icon="fa fa-minus" class="ui-button-danger" style="margin-top: 28px;"
+                <button pButton type="button" icon="pi pi-minus" class="p-button-danger"
                         (click)="eliminarAsesor(i)" *ngIf="i!=0" pTooltip="Eliminar" tooltipPosition="top"></button>
               </div>
             </div>
@@ -76,10 +67,9 @@
       </p-fieldset>
       <div class="row ">
         <div class="col-12 form-footer-buttons">
-          <button pButton type="button" class="ui-button-danger" icon="fa fa-arrow-left" (click)="atras()"
+          <button pButton type="button" class="p-button-danger" icon="pi pi-arrow-left" (click)="atras()"
                   label="Atras"></button>
-          <button pButton type="submit" style="margin-right: .5em; margin-left: .5em" icon="fa fa-floppy-o"
-                  label="Guardar"></button>
+          <button pButton type="submit" icon="pi pi-save" label="Guardar"></button>
         </div>
       </div>
     </form>

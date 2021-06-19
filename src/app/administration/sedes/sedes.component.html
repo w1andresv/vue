@@ -3,7 +3,7 @@
     <ng-template pTemplate="caption">
       <div class="ui-helper-clearfix" style="text-align: left">
         <button pButton (click)="agregar()"
-                label="Agregar" icon="fa fa-plus"></button>
+                label="Agregar" icon="pi pi-plus"></button>
         <input type="text" pInputText size="50" placeholder="Buscar" style="float:right; width: 50%"
                (input)="dt.filterGlobal($event.target.value, 'contains')">
       </div>
@@ -21,19 +21,19 @@
       <tr [pSelectableRow]="row">
         <td class="text-center">{{row.codigo }}</td>
         <td class="text-center">{{row.nombre |uppercase}}</td>
-        <td class="text-center" *ngIf="row.habilitado"><i style="color: green" class="fa fa-check"></i></td>
-        <td class="text-center" *ngIf="!row.habilitado"><i style="color: red" class="fa fa-times"></i></td>
+        <td class="text-center" *ngIf="row.habilitado"><i style="color: green" class="pi pi-check"></i></td>
+        <td class="text-center" *ngIf="!row.habilitado"><i style="color: red" class="pi pi-times"></i></td>
         <td class="text-center">
           <button pButton type="button" icon="pi pi-pencil" (click)="agregar(row)"
                   pTooltip="Editar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-danger" icon="fa fa-power-off"
-                  style="margin-left: .5em" (click)="inhabilitar(row)" *ngIf="row.habilitado"
+          <button pButton type="button" class="p-button-danger" icon="pi pi-power-off"
+                  (click)="inhabilitar(row)" *ngIf="row.habilitado"
                   pTooltip="Inhabilitar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-success" icon="fa fa-power-off"
-                  style="margin-left: .5em" (click)="habilitar(row)" *ngIf="!row.habilitado"
+          <button pButton type="button" class="p-button-success" icon="pi pi-power-off"
+                  (click)="habilitar(row)" *ngIf="!row.habilitado"
                   pTooltip="Habilitar" tooltipPosition="top"></button>
-          <button pButton type="button" class="ui-button-success" icon="fa fa-users"
-                  style="margin-left: .5em" (click)="verAsesores(row)"
+          <button pButton type="button" class="p-button-success" icon="pi pi-users"
+                   (click)="verAsesores(row)"
                   pTooltip="Asesores" tooltipPosition="top"></button>
         </td>
       </tr>

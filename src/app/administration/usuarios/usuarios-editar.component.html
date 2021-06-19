@@ -5,8 +5,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 form-group">
           <label for="nombre">Nombre *</label>
           <input type="text" pInputText id="Nombre" formControlName="nombre" class="form-control">
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.nombre.invalid">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.nombre.invalid">
             Nombre requerido
           </div>
         </div>
@@ -14,17 +13,16 @@
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label for="usuario">Usuario *</label>
-          <input type="text" pInputText id="usuario" formControlName="usuarioSistema" class="form-control" minlength="8">
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.usuarioSistema.invalid">
-            <i class="fa fa-close"></i>
+          <input type="text" pInputText id="usuario" formControlName="usuarioSistema" class="form-control"
+                 minlength="8">
+          <div class="p-error" *ngIf="submitted && f.usuarioSistema.invalid">
             Usuario requerido
           </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <label for="correo">Correo</label>
           <input type="text" id="correo" pInputText class="form-control" formControlName="email" pKeyFilter="email">
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.email.invalid">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.email.invalid">
             Correo requerido
           </div>
         </div>
@@ -34,8 +32,7 @@
           <label>Rol *</label>
           <p-dropdown [options]="listaRoles" placeholder="Seleccione" formControlName="rol" filter="filter"
                       [style]="{'width':'100%'}"></p-dropdown>
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.rol.invalid">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.rol.invalid">
             Rol requerido
           </div>
         </div>
@@ -47,12 +44,10 @@
             <input [type]="showPass" pInputText id="password" formControlName="password" class="form-control"
                    required>
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1" (click)="show(true)"><i class="fa {{eye}}"></i></span>
+              <span class="input-group-text" id="basic-addon1" (click)="show(true)"><i class="pi {{eye}}"></i></span>
             </div>
           </div>
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.password.invalid">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.password.invalid">
             Constraseña requerida
           </div>
         </div>
@@ -62,21 +57,18 @@
             <input [type]="showConfim" pInputText id="passwordC" formControlName="passwordConfirm" class="form-control"
                    required>
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon12" (click)="show(false)"><i class="fa {{eyeNew}}">
+              <span class="input-group-text" id="basic-addon12" (click)="show(false)"><i class="pi {{eyeNew}}">
               </i></span>
             </div>
           </div>
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="submitted && f.passwordConfirm.invalid">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.passwordConfirm.invalid">
             Constraseña requerida
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
-          <div class="ui-message ui-messages-error ui-corner-all"
-               *ngIf="submitted && f.password.value!==f.passwordConfirm.value">
-            <i class="fa fa-close"></i>
+          <div class="p-error" *ngIf="submitted && f.password.value!==f.passwordConfirm.value">
             Las contraseñas no coinciden
           </div>
         </div>
@@ -90,9 +82,9 @@
       </div>
       <div class="row ">
         <div class="col-12 form-footer-buttons">
-          <button pButton type="button" class="ui-button-danger" icon="fa fa-arrow-left" (click)="atras()"
+          <button pButton type="button" class="p-button-danger" icon="pi pi-arrow-left" (click)="atras()"
                   label="Atras"></button>
-          <button pButton type="submit" style="margin-right: .5em; margin-left: .5em" icon="fa fa-floppy-o"
+          <button pButton type="submit" icon="pi pi-save"
                   label="Guardar"></button>
         </div>
       </div>
