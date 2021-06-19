@@ -8,7 +8,8 @@ import { Table } from 'primeng/table';
 import { SedeService } from '../../_services/sede.service';
 import { AsesorService } from '../../_services/asesor.service';
 import { Cotizacion } from '../../_modelos/cotizacion';
-import { UsuarioService } from "../../_services/usuario.service";
+import { UsuarioService } from '../../_services/usuario.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // @ts-ignore
 @Component( {
@@ -23,21 +24,31 @@ export class CotizadorComponent implements OnInit {
   cotizacionesTemp: Cotizacion[];
   mostrar = 'TABLA';
   pdfCotizacion: any;
-  generandoPdf ='';
+  generandoPdf = '';
+  generandoPdfComparativo = '';
   es: any;
   fechas: Date[];
   rango: string;
-  @ViewChild('dt') private table: Table;
   busqueda: string;
   fechaFinVegencia: any;
   cotizacion: Cotizacion;
+  cotizacionEdit: Cotizacion;
+  modalMapfre: boolean = false;
+  formulario: FormGroup;
+  submitted = false;
+  @ViewChild( 'dt' ) private table: Table;
 
-  constructor( private cotizacionService: CotizacionService,
+  constructor( private formBuilder: FormBuilder,
+               private cotizacionService: CotizacionService,
                private sedeService: SedeService,
                private asesorService: AsesorService,
                private usuarioService: UsuarioService,
                private tipoVehiculoService: TipoVehiculoService,
                private generarPdfService: GenerarPdfService ) {
+  }
+
+  get f() {
+    return this.formulario.controls;
   }
 
   ngOnInit() {
@@ -84,6 +95,32 @@ export class CotizadorComponent implements OnInit {
 
   crear() {
     this.mostrar = 'EDITAR';
+  }
+
+  verModalMapfre( cotizacion ) {
+    this.cotizacionEdit = cotizacion;
+    this.cargarFormulario( cotizacion );
+    this.modalMapfre = true;
+  }
+
+  generarPdfMapfre( cotizacion ) {
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.cotizacionEdit = this.formulario.value;
+    if ( this.formulario.invalid ) {
+      return;
+    }
+    this.cotizacionService.actualizar( this.cotizacionEdit ).subscribe( rest => {
+      this.cotizaciones[ this.cotizaciones.findIndex( x => x._id === rest._id ) ] = rest;
+      this.submitted = false;
+      this.modalMapfre = false;
+      this.cotizacionEdit = null;
+      console.log( rest );
+    }, error => {
+      console.log( error );
+    } );
   }
 
   generarPdf( cotizacion ) {
@@ -201,7 +238,7 @@ export class CotizadorComponent implements OnInit {
   filtroFechas() {
     const lista = [];
     if ( this.fechas[ 0 ] !== null && this.fechas[ 1 ] !== null ) {
-      const inicio = moment( this.fechas[ 0 ] ).hours( - 1 );
+      const inicio = moment( this.fechas[ 0 ] ).hours( -1 );
       const fin = moment( this.fechas[ 1 ] ).add( 1, 'days' );
       this.cotizacionesTemp.map( x => {
         if ( moment( new Date( x.fechaCotizacion ) ).isBetween( inicio, fin ) ) {
@@ -235,5 +272,40 @@ export class CotizadorComponent implements OnInit {
   editar( event ) {
     this.cotizacion = event;
     this.mostrar = 'EDITAR';
+  }
+
+  cargarFormulario( cotizacion? ) {
+    const fechaInicio = moment().set( {
+      hour: 0,
+      minute: 0,
+      second: 0
+    } ).format();
+    const fechaCustom = moment( '2020-01-01' ).set( {
+      hour: 0,
+      minute: 0,
+      second: 0
+    } ).format();
+    this.formulario = this.formBuilder.group( {
+      _id: [ cotizacion ? cotizacion._id : null ],
+      fechaCotizacion: [ cotizacion ? cotizacion.fechaCotizacion : null ],
+      fechaNacimiento: [ cotizacion ? new Date( cotizacion.fechaNacimiento ) : null ],
+      aseguradoraActualTodoRiesgo: [ cotizacion ? cotizacion.aseguradoraActualTodoRiesgo : '' ],
+      fechaVencimientoSoat: [ cotizacion ? new Date( cotizacion.fechaVencimientoSoat ) : new Date( fechaCustom ) ],
+      fechaVencimientoPTR: [ cotizacion ? new Date( cotizacion.fechaVencimientoPTR ) : new Date( fechaCustom ) ],
+      fechaInicioVigencia: [ cotizacion ? new Date( cotizacion.fechaInicioVigencia ) : new Date( fechaInicio ), [ Validators.required ] ],
+      fechaFinVigencia: [ cotizacion ? new Date( cotizacion.fechaFinVigencia ) : null, [ Validators.required ] ],
+      tomador: [ cotizacion ? cotizacion.tomador : null, [ Validators.required ] ],
+      numeroDocumento: [ cotizacion ? cotizacion.numeroDocumento : null, [ Validators.required ] ],
+      celular: [ cotizacion ? cotizacion.celular : null, [ Validators.required ] ],
+      correo: [ cotizacion ? cotizacion.correo : null, [ Validators.required ] ],
+      asesor: [ cotizacion ? cotizacion.asesor : null, [ Validators.required ] ],
+      sede: [ cotizacion ? cotizacion.sede : null, [ Validators.required ] ],
+      placa: [ cotizacion ? cotizacion.placa : null, [ Validators.required ] ],
+      modelo: [ cotizacion ? cotizacion.modelo : null, [ Validators.required ] ],
+      tipoVehiculo: [ cotizacion ? cotizacion.tipoVehiculo : null, [ Validators.required ] ],
+      idUsuario: [ cotizacion ? cotizacion.idUsuario : null ],
+      valorAsegurado: [ cotizacion ? cotizacion.valorAsegurado : null, [ Validators.required ] ],
+      valorMapfre: [ cotizacion ? cotizacion.valorMapfre : null, [ Validators.required ] ]
+    } );
   }
 }

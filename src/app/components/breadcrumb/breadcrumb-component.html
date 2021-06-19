@@ -1,12 +1,12 @@
 <ul [class.breadcrumb]="useBootstrap" >
   <li class="breadcrumb-item" >
-    <a role="button" (click)="navigateTo('/dashboard')"><i class="fa fa-home"></i></a>
+    <a role="button" (click)="navigateTo('/dashboard')"><i class="pi pi-home"></i></a>
   </li>
   <li *ngFor="let url of _urls; let last = last" [ngClass]="{'breadcrumb-item': useBootstrap, 'active': last}">
     <!-- disable link of last item -->
-    <a role="button" *ngIf="!last && url == prefix" (click)="navigateTo(url)"><i class="fa fa-home"></i></a>
+    <a role="button" *ngIf="!last && url == prefix" (click)="navigateTo(url)"><i class="pi pi-home"></i></a>
     <a role="button" *ngIf="!last && url != prefix" (click)="navigateTo(url)">{{friendlyName(url)}}</a>
-    <a *ngIf="last && url == prefix"><i class="fa fa-home"></i></a>
+    <a *ngIf="last && url == prefix"><i class="pi pi-home"></i></a>
     <a *ngIf="last && url != prefix">{{friendlyName(url)}}</a>
   </li>
 </ul>

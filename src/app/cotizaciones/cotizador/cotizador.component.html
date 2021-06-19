@@ -1,10 +1,10 @@
 <div *ngIf="mostrar==='TABLA'" class="container-fluid">
   <div class="row">
     <div class="col-3">
-      <button pButton type="button" icon="fa fa-plus" label="Nueva" (click)="crear()"
-              style="margin-right: 0.5em;"></button>
+      <button pButton type="button" icon="pi pi-plus" label="Nueva" class="" (click)="crear()"
+      ></button>
       <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()"
-              style="margin-right: 0.5em;" class="ui-button-success"></button>
+              class="p-button-success "></button>
     </div>
     <div class="col-4">
       <p-calendar [(ngModel)]="fechas" [locale]="es" dateFormat="yy/mm/dd"
@@ -44,11 +44,18 @@
             <td>
               <div class="btn-group" role="group">
                 <button pButton type="button" icon="pi pi-pencil" (click)="editar(row)"
-                        pTooltip="Editar" tooltipPosition="top"></button>
-                <button type="button" class="ui-button-success" icon="pi pi-file-pdf" data-toggle="tooltip"
-                        pTooltip="Ver PDF" tooltipPosition="top" style="margin-left: .5em"
+                        pTooltip="Editar" tooltipPosition="top" class=""></button>
+                <button type="button" class="p-button-success " icon="pi pi-file-pdf" data-toggle="tooltip"
+                        pTooltip="Ver PDF" tooltipPosition="top"
                         pButton (click)="generarPdf(row)" *ngIf="generandoPdf!==row.id"></button>
-                <i *ngIf="generandoPdf===row.id" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+                <i *ngIf="generandoPdf===row.id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+                <button pButton type="button" icon="pi pi-plus-circle" class="p-button-danger " pTooltip="Valor MAPFRE"
+                        tooltipPosition="top" (click)="verModalMapfre(row)"></button>
+                <button type="button" class="p-button-success " icon="pi pi-copy" data-toggle="tooltip"
+                        pTooltip="PDF comparativo" tooltipPosition="top"
+                        pButton (click)="generarPdfMapfre(row)"
+                        *ngIf="generandoPdfComparativo!==row.id && row.valorMapfre"></button>
+                <i *ngIf="generandoPdf===row.id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
               </div>
             </td>
           </tr>
@@ -73,9 +80,30 @@
                            [showOpenFileButton]="false"></ngx-extended-pdf-viewer>
   <div class="row form-footer-buttons">
     <div class="col-md-10 offset-md-1 col-sm-12 col-lg-10 offset-lg-1">
-      <button pButton type="button" icon="fa fa-arrow-left" label="Volver" (click)="mostrarComponente('TABLA')"
+      <button pButton type="button" icon="pi pi-arrow-left" label="Volver" (click)="mostrarComponente('TABLA')"
               style="margin: 10px"></button>
     </div>
   </div>
 </div>
 
+<p-dialog [header]="cotizacionEdit.tomador" [(visible)]="modalMapfre" *ngIf="modalMapfre"
+          [modal]="true" [baseZIndex]="10000">
+  <form (ngSubmit)="onSubmit()" *ngIf="formulario" [formGroup]="formulario">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+        <label for="valorMapfre">Valor MAPFRE</label>
+        <input [options]="{ prefix: '$ ', thousands: '.',nullable: false, precision: 0}"
+               class="form-control" currencyMask formControlName="valorMapfre"
+               id="valorMapfre" pInputText type="text">
+        <small *ngIf="submitted && f.valorMapfre.invalid" class="p-error">
+          Valor requerido
+        </small>
+      </div>
+    </div>
+    <div class="row" style="display: flex; justify-content: center">
+      <p-button icon="pi pi-times" (click)="modalMapfre=false" label="Cancelar"
+                styleClass="p-button-danger "></p-button>
+      <p-button icon="pi pi-check" label="Guardar" type="submit"></p-button>
+    </div>
+  </form>
+</p-dialog>

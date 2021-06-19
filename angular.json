@@ -29,15 +29,10 @@
               }
             ],
             "styles": [
-              "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/brands.min.css",
-              "node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css",
-              "node_modules/admin-lte/dist/css/adminlte.css",
-              "node_modules/primeng/resources/themes/saga-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/admin-lte/dist/css/adminlte.css",
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css",
               "src/styles.scss"

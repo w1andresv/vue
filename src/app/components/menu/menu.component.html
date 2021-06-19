@@ -17,31 +17,31 @@
                    with font-awesome or any other icon font library -->
               <li class="nav-item">
                 <a [routerLinkActive]="['active']" [routerLink]="['dashboard']" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <i class="nav-icon pi pi-home"></i>
                   <p> Dashboard </p>
                 </a>
               </li>
               <li class="nav-item" >
                 <a [routerLinkActive]="['active']" [routerLink]="['cot/cotizador']" class="nav-link">
-                  <i class="nav-icon fas fa-calculator"></i>
+                  <i class="nav-icon pi pi-book"></i>
                   <p>Cotizaciones</p>
                 </a>
               </li>
               <li *ngIf="usuario&&usuario.rol==='ADMIN'" class="nav-item">
                 <a [routerLinkActive]="['active']" [routerLink]="['adm/usuarios']" class="nav-link">
-                  <i class="nav-icon fas fa-users"></i>
+                  <i class="nav-icon pi pi-users"></i>
                   <p> Usuarios </p>
                 </a>
               </li>
               <li  class="nav-item" *ngIf="usuario&&usuario.rol==='ADMIN'">
                 <a [routerLinkActive]="['active']" [routerLink]="['adm/sedes']" class="nav-link">
-                  <i class="nav-icon fas fa-university"></i>
+                  <i class="nav-icon pi pi-globe"></i>
                   <p> Sedes </p>
                 </a>
               </li>
               <li  class="nav-item" *ngIf="usuario&&usuario.rol==='ADMIN'">
                 <a [routerLinkActive]="['active']" [routerLink]="['adm/tipos-vehiculos']" class="nav-link">
-                  <i class="nav-icon fas fa-car-side"></i>
+                  <i class="nav-icon pi pi-chart-bar"></i>
                   <p> Tipos vehiculos </p>
                 </a>
               </li>
@@ -50,7 +50,7 @@
                   data-accordion="false" data-widget="treeview" role="menu">
                 <li class="nav-item">
                   <a (click)="cerrarSesion()" class="nav-link" style="cursor: pointer">
-                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <i class="nav-icon pi pi-sign-out"></i>
                     <p> Cerrar sesión </p>
                   </a>
                 </li>
