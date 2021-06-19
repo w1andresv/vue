@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import * as jsPDF  from 'jspdf';
-import 'jspdf-autotable'
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import { forkJoin, Observable } from 'rxjs';
 import * as moment from 'moment/moment';
 
@@ -11,6 +11,9 @@ import * as moment from 'moment/moment';
 } )
 export class GenerarPdfService {
   fechaFinVegencia: any;
+  colorPdfComparativo: string = '#eae9e9';
+  textColorG: string = '#06c109';
+  textColorR: string = '#bf0202';
   private urlImagen = './assets/images/';
 
   constructor( private http: HttpClient ) {
@@ -18,6 +21,635 @@ export class GenerarPdfService {
 
   public obtenerImagen( imagen: string, formato: string ) {
     return this.http.get( `${ this.urlImagen }${ imagen }.${ formato }`, { responseType: 'blob' } ).pipe( map( img => img as Blob ) );
+  }
+
+  setTitle(): any[] {
+    const data = [];
+    data.push( {
+      content: 'GESTIÓN INTEGRAL DE PROTECCIÓN\n' +
+        'AGENCIA DE SEGUROS', colSpan: 12,
+      styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+    } );
+    return data;
+  }
+
+  setSubtitle(): any[] {
+    const data = [];
+    data.push( {
+      content: 'COMPARATIVO OFERTA DE SEGUROS PARA AUTOS PARTICULARES', colSpan: 12,
+      styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+    } );
+    return data;
+  }
+
+  setSubtitleCoberage(): any[] {
+    const data = [];
+    data.push( {
+      content: 'COMPAÑIAS', colSpan: 6,
+      styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+    } );
+    data.push( {
+      content: 'MAPFRE', colSpan: 3,
+      styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+    } );
+    data.push( {
+      content: 'EQUIDAD', colSpan: 3,
+      styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+    } );
+    return data;
+  }
+
+  setDataTomador( cot ) {
+    const data = [
+      [
+        {
+          content: `Nombre:   ${ cot.tomador }`, colSpan: 12,
+          styles: { halign: 'left', }
+        }
+      ],
+      [
+        {
+          content: `Cédula:   ${ cot.numeroDocumento }`, colSpan: 12,
+          styles: { halign: 'left', }
+        }
+      ],
+      [
+        {
+          content: `Celular:  ${ cot.celular }`, colSpan: 6,
+          styles: { halign: 'left', }
+        },
+        {
+          content: `Asesor:   ${ cot.asesorName }`, colSpan: 6,
+          styles: { halign: 'left', }
+        }
+      ],
+      [
+        {
+          content: `Email:  ${ cot.correo }`, colSpan: 6,
+          styles: { halign: 'left', }
+        },
+        {
+          content: `Oficina:  ${ cot.sedeName }`, colSpan: 6,
+          styles: { halign: 'left', }
+        }
+      ],
+      [
+        {
+          content: `Placa:  ${ cot.placa }`, colSpan: 12,
+          styles: { halign: 'left', }
+        }
+      ],
+      [
+        {
+          content: `Valor asegurado: ${ Number( cot.valorAsegurado ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ) }`, colSpan: 12,
+          styles: { halign: 'left', }
+        }
+      ],
+    ];
+    return data;
+  }
+
+  setCoberage( cot ): any[] {
+    const data = [
+      [
+        {
+          content: 'Cobertura del vehículo', colSpan: 6,
+          styles: { halign: 'left', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+        },
+        {
+          content: '', colSpan: 6,
+          styles: { halign: 'center' }
+        }
+      ],
+      [
+        {
+          content: 'Pérdida Total del Vehículo por Daños', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Valor comercial', colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: 'Valor comercial', colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        }
+      ],
+      [
+        {
+          content: 'Pérdida Total del Vehículo por Hurto o Hurto Calificado', colSpan: 6,
+          styles: { halign: 'left' }
+        }
+      ],
+      [
+        {
+          content: 'Pérdida Parcial del Vehículo por Daños', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Valor del daño', colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: 'Valor del daño', colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        }
+      ],
+      [
+        {
+          content: 'Pérdida Parcial del Vehículo por Hurto o Hurto Calificado', colSpan: 6,
+          styles: { halign: 'left' }
+        }
+      ],
+      [
+        {
+          content: 'Terremoto, Temblor y / o Erupción Volcánica', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Valor comercial o del daño según la cobertura afectada', colSpan: 6,
+          styles: { halign: 'center' }
+        }
+      ],
+      [
+        {
+          content: 'Días cotizados', colSpan: 6,
+          styles: { halign: 'left', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+        },
+        {
+          content: '365', colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: `${ cot.diasVigencia }`, colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        }
+      ],
+    ];
+    return data;
+  }
+
+  setDeducibles( cot ): any[] {
+    const data = [
+      [
+        {
+          content: 'Deducibles', colSpan: 6,
+          styles: { halign: 'left', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+        },
+        {
+          content: '', colSpan: 6,
+          styles: { halign: 'center' }
+        }
+      ],
+      [
+        {
+          content: 'Pérdida Total del Vehículo por Daños', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: Number( 0 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: Number( 0 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Pérdida Total del Vehículo por Hurto o Hurto Calificado', colSpan: 6,
+          styles: { halign: 'left' }
+        }
+      ],
+      [
+        {
+          content: 'Pérdida Parcial del Vehículo por Daños', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: Number( 980000 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: Number( 950000 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3, rowSpan: 2,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+      ],
+      [
+        {
+          content: 'Pérdida Parcial del Vehículo por Hurto o Hurto Calificado', colSpan: 6,
+          styles: { halign: 'left' }
+        }
+      ],
+      [
+        {
+          content: 'Terremoto, Temblor y / o Erupción Volcánica', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: '10% Min 1 (SMMLV)', colSpan: 3,
+          styles: { halign: 'center' }
+        },
+        {
+          content: 'Según cobertura afectada', colSpan: 3,
+          styles: { halign: 'center' }
+        }
+      ],
+    ];
+    return data;
+  }
+
+  setAmparoPatrimonial( cot ): any[] {
+    const data = [
+      [
+        {
+          content: 'Amparo de Responsabilidad Civil Extracontractual', colSpan: 6, rowSpan: 2,
+          styles: { halign: 'left', fillColor: this.colorPdfComparativo, fontStyle: 'bold', valign: 'middle' }
+        },
+        {
+          content: 'Cubre todos aquellos daños o lesiones producidas por el vehículo asegurado a los bienes de terceros o personas.',
+          colSpan: 6,
+          styles: { halign: 'center' }
+        }
+      ],
+      [
+        {
+          content: 'Valores Asegurados', colSpan: 12,
+          styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Responsabilidad Civil Extracontractual ', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: Number( 3000000000 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3, rowSpan: 3,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: Number( 3000000000 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3, rowSpan: 3,
+          styles: { halign: 'center', valign: 'middle' }
+        }
+      ],
+      [
+        {
+          content: 'Muerte o lesiones o muerte a una persona', colSpan: 6,
+          styles: { halign: 'left' }
+        }
+      ],
+      [
+        {
+          content: 'Muerte o lesiónes a dos o más personas', colSpan: 6,
+          styles: { halign: 'left' }
+        }
+      ],
+      [
+        {
+          content: 'Deducibles', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: Number( 0 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: Number( 0 ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+      ],
+    ];
+    return data;
+  }
+
+  setAdicionales( cot ): any[] {
+    const data = [
+      [
+        {
+          content: 'Coberturas Adicionales', colSpan: 12,
+          styles: { halign: 'left', fillColor: this.colorPdfComparativo, fontStyle: 'bold', valign: 'middle' }
+        }
+      ],
+      [
+        {
+          content: 'Asistencia Juridica en proceso Civil o penal ', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Rotura de Vidrios  ', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'No', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorR, fontStyle: 'bold' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Pequeños Accesorios', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Asistencia Exequial Automóviles', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'No', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorR, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Llantas Estalladas', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Kit de Viaje', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Vehículo de remplazo', colSpan: 6,
+          styles: { halign: 'left', valign: 'middle' }
+        },
+        {
+          content: '10 Dias en parciales 15 días en perdidas totales', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: '10 Dias en parciales 15 días en perdidas totales', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle' }
+        }
+      ],
+      [
+        {
+          content: 'Amparo Patrimonial', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Accidentes personales para el conductor', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'No', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorR, fontStyle: 'bold' }
+        },
+        {
+          content: '40 MLL', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle' }
+        }
+      ],
+      [
+        {
+          content: 'Accidentes personales para Ocupantes', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: '5 MLL', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: 'No', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorR, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Perdida de llaves', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'No', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorR, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Asistencia ', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        },
+        {
+          content: 'Si', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', textColor: this.textColorG, fontStyle: 'bold' }
+        }
+      ],
+      [
+        {
+          content: 'Gastos de transporte en perdida total ', colSpan: 6,
+          styles: { halign: 'left' }
+        },
+        {
+          content: 'Hasta 1.50 SMDLV Por 30 Días', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle' }
+        },
+        {
+          content: '$30,000 diarios por 30 dias', colSpan: 3,
+          styles: { halign: 'center', valign: 'middle', }
+        }
+      ],
+    ];
+    return data;
+  }
+
+  setTotales( cot ): any[] {
+    const data = [
+      [
+        {
+          content: 'Valor Póliza incluido el IVA Total año', colSpan: 6,
+          styles: { halign: 'left', fillColor: this.colorPdfComparativo, fontStyle: 'bold', valign: 'middle' }
+        },
+        {
+          content: Number( cot.valorMapfre ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3,
+          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+        },
+        {
+          content: Number( cot.total ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3,
+          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+        }
+      ],
+      [
+        {
+          content: 'Total a pagar por Vigencia', colSpan: 6,
+          styles: { halign: 'left', fillColor: this.colorPdfComparativo, fontStyle: 'bold', valign: 'middle' }
+        },
+        {
+          content: Number( cot.valorMapfre ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3,
+          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+        },
+        {
+          content: Number( cot.totalVigencia ).toLocaleString( 'es-CO', {
+            style: 'currency',
+            currency: 'COP'
+          } ), colSpan: 3,
+          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+        }
+      ],
+    ];
+    return data;
+  }
+
+  setBody( cotizacion ): any[] {
+    const data = [];
+    data.push( this.setTitle() );
+    data.push( this.setSubtitle() );
+    data.push( ...this.setDataTomador( cotizacion ) );
+    data.push( this.setSubtitleCoberage() );
+    data.push( ...this.setCoberage( cotizacion ) );
+    data.push( ...this.setDeducibles( cotizacion ) );
+    data.push( ...this.setAmparoPatrimonial( cotizacion ) );
+    data.push( ...this.setAdicionales( cotizacion ) );
+    data.push( ...this.setTotales( cotizacion ) );
+    return data;
+  }
+
+  setCollumnStyle() {
+    return {
+      0: { cellWidth: 8 },
+      1: { cellWidth: 8 },
+      2: { cellWidth: 8 },
+      3: { cellWidth: 8 },
+      4: { cellWidth: 8 },
+      5: { cellWidth: 8 },
+      6: { cellWidth: 8 },
+      7: { cellWidth: 8 },
+      8: { cellWidth: 8 },
+      9: { cellWidth: 8 },
+      10: { cellWidth: 8 },
+      11: { cellWidth: 8 },
+
+    };
+  }
+
+  generarPdfComparativo( cotizacion, cooprofesores, equidad, gip ): Observable<any> {
+    this.calcularFechaFinVigencia();
+    return new Observable( observer => {
+      forkJoin(
+        this.leerImagen( cooprofesores ),
+        this.leerImagen( equidad ),
+        this.leerImagen( gip ),
+      ).subscribe( ( [ cooprofesoresBase64, equidadBase64, gipBase64 ] ) => {
+        const doc = new jsPDF( 'p', 'mm', 'a4' );
+        // doc.addImage( equidadBase64, 'JPEG', 3, 3, 50, 15 );
+        // doc.addImage( cooprofesoresBase64, 'JPEG', 155, 3, 30, 15 );
+        // doc.addImage( gipBase64, 'JPEG', 188, 3, 17, 15 );
+        doc.addImage( gipBase64, 'JPEG', 3, 3, 17, 15 );
+        doc.autoTable( {
+          styles: { fontSize: 8, cellPadding: 0.5 },
+          columnStyles: this.setCollumnStyle(),
+          theme: 'grid',
+          startY: 18,
+          margin: { top: 3, left: 3, right: 3 },
+          body: this.setBody( cotizacion )
+        } );
+        const salida = URL.createObjectURL( new Blob( [ doc.output( 'blob' ) ], { type: 'application/pdf' } ) );
+        observer.next( salida );
+        observer.complete();
+      }, error => {
+        observer.next( null );
+        observer.complete();
+      } );
+    } );
   }
 
   generarPdf( cotizacion, cooprofesores, equidad, gip ): Observable<any> {

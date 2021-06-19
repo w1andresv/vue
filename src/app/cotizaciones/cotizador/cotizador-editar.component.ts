@@ -135,7 +135,8 @@ export class CotizadorEditarComponent implements OnInit {
       modelo: [ cotizacion ? cotizacion.modelo : null, [ Validators.required ] ],
       tipoVehiculo: [ cotizacion ? cotizacion.tipoVehiculo : null, [ Validators.required ] ],
       idUsuario: [ cotizacion ? cotizacion.idUsuario : null ],
-      valorAsegurado: [ cotizacion ? cotizacion.valorAsegurado : null, [ Validators.required ] ]
+      valorAsegurado: [ cotizacion ? cotizacion.valorAsegurado : null, [ Validators.required ] ],
+      valorMapfre: [ cotizacion ? cotizacion.valorMapfre : null ]
     } );
     if ( cotizacion ) {
       this.listarAsesores( this.cotizacion.sede, true );

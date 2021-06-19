@@ -104,6 +104,37 @@ export class CotizadorComponent implements OnInit {
   }
 
   generarPdfMapfre( cotizacion ) {
+    this.generandoPdfComparativo = cotizacion._id;
+    forkJoin(
+      this.tipoVehiculoService.getById( cotizacion.tipoVehiculo ),
+      this.asesorService.getById( cotizacion.asesor ),
+      this.sedeService.getById( cotizacion.sede )
+    ).subscribe( ( [ tipoVehiculo, asesor, sede ] ) => {
+      cotizacion.tipoVehiculoName = tipoVehiculo.nombre;
+      cotizacion.asesorName = asesor.nombre;
+      cotizacion.sedeName = sede.nombre;
+      forkJoin(
+        this.generarPdfService.obtenerImagen( 'gip', 'png' ),
+        this.generarPdfService.obtenerImagen( 'equidad', 'png' ),
+        this.generarPdfService.obtenerImagen( 'cooprofesores', 'png' )
+      ).subscribe( ( [ gip, equidad, cooprofesores ] ) => {
+        this.generarPdfService.generarPdfComparativo( cotizacion, cooprofesores, equidad, gip ).subscribe( res => {
+          this.generandoPdfComparativo = '';
+          if ( res ) {
+            this.pdfCotizacion = res;
+            this.mostrar = 'PDF';
+          } else {
+            this.mostrar = 'TABLA';
+          }
+        } );
+      }, error => {
+        this.generandoPdfComparativo = '';
+        console.log( 'A ocurrido un error' );
+      } );
+    }, error => {
+      this.generandoPdfComparativo = '';
+      console.log( 'A ocurrido un error' );
+    } );
   }
 
   onSubmit() {
@@ -124,7 +155,7 @@ export class CotizadorComponent implements OnInit {
   }
 
   generarPdf( cotizacion ) {
-    this.generandoPdf = cotizacion.id;
+    this.generandoPdf = cotizacion._id;
     forkJoin(
       this.tipoVehiculoService.getById( cotizacion.tipoVehiculo ),
       this.asesorService.getById( cotizacion.asesor ),
@@ -292,8 +323,8 @@ export class CotizadorComponent implements OnInit {
       aseguradoraActualTodoRiesgo: [ cotizacion ? cotizacion.aseguradoraActualTodoRiesgo : '' ],
       fechaVencimientoSoat: [ cotizacion ? new Date( cotizacion.fechaVencimientoSoat ) : new Date( fechaCustom ) ],
       fechaVencimientoPTR: [ cotizacion ? new Date( cotizacion.fechaVencimientoPTR ) : new Date( fechaCustom ) ],
-      fechaInicioVigencia: [ cotizacion ? new Date( cotizacion.fechaInicioVigencia ) : new Date( fechaInicio ), [ Validators.required ] ],
-      fechaFinVigencia: [ cotizacion ? new Date( cotizacion.fechaFinVigencia ) : null, [ Validators.required ] ],
+      fechaInicioVigencia: [ cotizacion ? cotizacion.fechaInicioVigencia : null, [ Validators.required ] ],
+      fechaFinVigencia: [ cotizacion ? cotizacion.fechaFinVigencia : null, [ Validators.required ] ],
       tomador: [ cotizacion ? cotizacion.tomador : null, [ Validators.required ] ],
       numeroDocumento: [ cotizacion ? cotizacion.numeroDocumento : null, [ Validators.required ] ],
       celular: [ cotizacion ? cotizacion.celular : null, [ Validators.required ] ],
@@ -301,9 +332,17 @@ export class CotizadorComponent implements OnInit {
       asesor: [ cotizacion ? cotizacion.asesor : null, [ Validators.required ] ],
       sede: [ cotizacion ? cotizacion.sede : null, [ Validators.required ] ],
       placa: [ cotizacion ? cotizacion.placa : null, [ Validators.required ] ],
+      diasVigencia: [ cotizacion ? cotizacion.diasVigencia : null, [ Validators.required ] ],
       modelo: [ cotizacion ? cotizacion.modelo : null, [ Validators.required ] ],
       tipoVehiculo: [ cotizacion ? cotizacion.tipoVehiculo : null, [ Validators.required ] ],
       idUsuario: [ cotizacion ? cotizacion.idUsuario : null ],
+      primaAnual: [ cotizacion ? cotizacion.primaAnual : null ],
+      asistencias: [ cotizacion ? cotizacion.asistencias : null ],
+      subTotal: [ cotizacion ? cotizacion.subTotal : null ],
+      iva: [ cotizacion ? cotizacion.iva : null ],
+      total: [ cotizacion ? cotizacion.total : null ],
+      totalVigencia: [ cotizacion ? cotizacion.totalVigencia : null ],
+      tasaAplicada: [ cotizacion ? cotizacion.tasaAplicada : null ],
       valorAsegurado: [ cotizacion ? cotizacion.valorAsegurado : null, [ Validators.required ] ],
       valorMapfre: [ cotizacion ? cotizacion.valorMapfre : null, [ Validators.required ] ]
     } );

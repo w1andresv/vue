@@ -37,25 +37,29 @@
             <td class="text-center">{{row.tomador |uppercase}}</td>
             <td class="text-right"><strong>{{row.valorAsegurado| currency:'USD':'symbol':'1.0-0'}}</strong></td>
             <td class="text-center">{{row.celular}}</td>
-            <td style="width: 10% !important;">{{row.correo.toLowerCase()}}</td>
-            <td class="text-center">{{row.fechaInicioVigencia}}</td>
+            <td >{{row.correo.toLowerCase()}}</td>
+            <td class="text-center">{{row.fechaInicioVigencia }}</td>
             <td class="text-center">{{row.fechaCotizacion}}</td>
             <td class="text-center">{{row.placa}}</td>
-            <td>
+            <td >
               <div class="btn-group" role="group">
                 <button pButton type="button" icon="pi pi-pencil" (click)="editar(row)"
                         pTooltip="Editar" tooltipPosition="top" class=""></button>
                 <button type="button" class="p-button-success " icon="pi pi-file-pdf" data-toggle="tooltip"
                         pTooltip="Ver PDF" tooltipPosition="top"
-                        pButton (click)="generarPdf(row)" *ngIf="generandoPdf!==row.id"></button>
-                <i *ngIf="generandoPdf===row.id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+                        pButton (click)="generarPdf(row)" *ngIf="generandoPdf!==row._id"></button>
+                <div style="display: flex; justify-content: center; flex-direction: column;">
+                <i *ngIf="generandoPdf===row._id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+                </div>
                 <button pButton type="button" icon="pi pi-plus-circle" class="p-button-danger " pTooltip="Valor MAPFRE"
                         tooltipPosition="top" (click)="verModalMapfre(row)"></button>
+                <div style="display: flex; justify-content: center; flex-direction: column;">
+                  <i *ngIf="generandoPdfComparativo===row._id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+                </div>
                 <button type="button" class="p-button-success " icon="pi pi-copy" data-toggle="tooltip"
                         pTooltip="PDF comparativo" tooltipPosition="top"
                         pButton (click)="generarPdfMapfre(row)"
-                        *ngIf="generandoPdfComparativo!==row.id && row.valorMapfre"></button>
-                <i *ngIf="generandoPdf===row.id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+                        *ngIf="generandoPdfComparativo!==row._id && row.valorMapfre"></button>
               </div>
             </td>
           </tr>
