@@ -25,7 +25,7 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field" [pSortableColumnDisabled]="!col.sort"
-                class="text-center">
+                class="text-center" [ngClass]="{'acciones':col.field==='def'}">
               {{col.header}}
               <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
             </th>
@@ -37,11 +37,11 @@
             <td class="text-center">{{row.tomador |uppercase}}</td>
             <td class="text-right"><strong>{{row.valorAsegurado| currency:'USD':'symbol':'1.0-0'}}</strong></td>
             <td class="text-center">{{row.celular}}</td>
-            <td >{{row.correo.toLowerCase()}}</td>
             <td class="text-center">{{row.fechaInicioVigencia }}</td>
             <td class="text-center">{{row.fechaCotizacion}}</td>
-            <td class="text-center">{{row.placa}}</td>
-            <td >
+            <td class="text-center" style="width: 100px;">{{row.placa}}</td>
+            <td style="width: 180px">
+<!--              <p-splitButton label="Editar" icon="pi pi-pencil" (onClick)="editar(row)" [model]="items"></p-splitButton>-->
               <div class="btn-group" role="group">
                 <button pButton type="button" icon="pi pi-pencil" (click)="editar(row)"
                         pTooltip="Editar" tooltipPosition="top" class=""></button>
@@ -49,12 +49,13 @@
                         pTooltip="Ver PDF" tooltipPosition="top"
                         pButton (click)="generarPdf(row)" *ngIf="generandoPdf!==row._id"></button>
                 <div style="display: flex; justify-content: center; flex-direction: column;">
-                <i *ngIf="generandoPdf===row._id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+                  <i *ngIf="generandoPdf===row._id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
                 </div>
                 <button pButton type="button" icon="pi pi-plus-circle" class="p-button-danger " pTooltip="Valor MAPFRE"
                         tooltipPosition="top" (click)="verModalMapfre(row)"></button>
                 <div style="display: flex; justify-content: center; flex-direction: column;">
-                  <i *ngIf="generandoPdfComparativo===row._id" class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+                  <i *ngIf="generandoPdfComparativo===row._id" class="pi pi-spin pi-spinner"
+                     style="font-size: 1.5rem"></i>
                 </div>
                 <button type="button" class="p-button-success " icon="pi pi-copy" data-toggle="tooltip"
                         pTooltip="PDF comparativo" tooltipPosition="top"

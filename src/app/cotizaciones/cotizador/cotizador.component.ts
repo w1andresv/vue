@@ -10,6 +10,7 @@ import { AsesorService } from '../../_services/asesor.service';
 import { Cotizacion } from '../../_modelos/cotizacion';
 import { UsuarioService } from '../../_services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MenuItem } from 'primeng/api';
 
 // @ts-ignore
 @Component( {
@@ -36,6 +37,7 @@ export class CotizadorComponent implements OnInit {
   modalMapfre: boolean = false;
   formulario: FormGroup;
   submitted = false;
+  items: MenuItem[];
   @ViewChild( 'dt' ) private table: Table;
 
   constructor( private formBuilder: FormBuilder,
@@ -51,7 +53,25 @@ export class CotizadorComponent implements OnInit {
     return this.formulario.controls;
   }
 
+  opcionesBotonAcciones() {
+    this.items = [
+      {
+        label: 'Update', icon: 'pi pi-refresh', command: () => {
+          console.log();
+        }
+      },
+      {
+        label: 'Delete', icon: 'pi pi-times', command: () => {
+          console.log();
+        }
+      },
+      { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+      { label: 'Setup', icon: 'pi pi-cog', routerLink: [ '/setup' ] }
+    ];
+  }
+
   ngOnInit() {
+    this.opcionesBotonAcciones();
     this.cargarTabla();
     const actual = moment( new Date() ).year();
     const actualMas10 = actual + 10;
@@ -74,7 +94,6 @@ export class CotizadorComponent implements OnInit {
       { field: 'tomador', header: 'Tomador' },
       { field: 'valorAsegurado', header: 'Valor asegurado' },
       { field: 'celular', header: 'Celular' },
-      { field: 'correo', header: 'Correo' },
       { field: 'fechaInicioVigencia', header: 'Fecha inicio vigencia' },
       { field: 'fechaCotizacion', header: 'Fecha cotización' },
       { field: 'placa', header: 'Placa' },

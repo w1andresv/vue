@@ -1,1 +1,11 @@
-
+:host ::ng-deep .p-splitbutton {
+  display: inline-flex;
+  position: relative;
+  width: max-content !important;
+}
+:host ::ng-deep.p-splitbutton .p-splitbutton-defaultbutton {
+  margin-right: 0px !important;
+}
+.acciones{
+  width: 180px;
+}

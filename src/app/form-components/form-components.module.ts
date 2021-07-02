@@ -41,6 +41,8 @@ import { PorcentajeReactiveDirective } from '../_helpers/porcentaje-reactive.dir
 import { SinCaracteresEspecialesReactiveDirective } from '../_helpers/sin-caracteres-especiales-reactive.directive';
 import { SinNumerosReactiveDirective } from '../_helpers/sin-numeros-reactive.directive';
 import { TextoReactiveDirective } from '../_helpers/texto-reactive.directive';
+import { Splitter } from 'primeng/splitter';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 
 /**
@@ -77,7 +79,7 @@ import { TextoReactiveDirective } from '../_helpers/texto-reactive.directive';
     NgxCurrencyModule,
     CardModule,
     TooltipModule,
-
+    SplitButtonModule
   ],
   declarations: [
     UpperCaseReactiveDirective,
@@ -94,7 +96,8 @@ import { TextoReactiveDirective } from '../_helpers/texto-reactive.directive';
     DineroPipe,
     NumeroPipe,
     MonedaDirective,
-    TelefonoPipe
+    TelefonoPipe,
+
 
   ],
   exports: [
@@ -134,7 +137,8 @@ import { TextoReactiveDirective } from '../_helpers/texto-reactive.directive';
     SinCaracteresEspecialesReactiveDirective,
     SinNumerosReactiveDirective,
     TextoReactiveDirective,
-    TooltipModule
+    TooltipModule,
+    SplitButtonModule
   ]
 } )
 export class FormSharedModule {
