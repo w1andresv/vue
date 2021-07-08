@@ -14,6 +14,11 @@ export class GenerarPdfService {
   colorPdfComparativo: string = '#eae9e9';
   textColorG: string = '#06c109';
   textColorR: string = '#bf0202';
+  fontColorB: string = '#3385b5';
+  fontColorB2: string = '#0372d6';
+  fontColorMapfre: string = '#D91E04';
+  fontColorEquidad: string = '#00a13a';
+  textColorW: string = '#ffffff';
   private urlImagen = './assets/images/';
 
   constructor( private http: HttpClient ) {
@@ -49,12 +54,14 @@ export class GenerarPdfService {
       styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
     } );
     data.push( {
-      content: 'MAPFRE', colSpan: 3,
-      styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+      content: 'MAPFRE', colSpan: 3, rowSpan: 2,
+      styles: { halign: 'center', fillColor: this.fontColorMapfre, fontStyle: 'bold', textColor: this.textColorW,
+      valign: 'middle', fontSize: 20}
     } );
     data.push( {
-      content: 'EQUIDAD', colSpan: 3,
-      styles: { halign: 'center', fillColor: this.colorPdfComparativo, fontStyle: 'bold' }
+      content: 'EQUIDAD', colSpan: 3, rowSpan: 2,
+      styles: { halign: 'center', fillColor: this.fontColorEquidad, fontStyle: 'bold', textColor: this.textColorW,
+      valign: 'middle', fontSize: 20}
     } );
     return data;
   }
@@ -181,11 +188,23 @@ export class GenerarPdfService {
         },
         {
           content: '365', colSpan: 3, rowSpan: 2,
-          styles: { halign: 'center', valign: 'middle' }
+          styles: {
+            halign: 'center',
+            valign: 'middle',
+            fillColor: this.fontColorB,
+            fontStyle: 'bold',
+            textColor: this.textColorW,
+          }
         },
         {
           content: `${ cot.diasVigencia }`, colSpan: 3, rowSpan: 2,
-          styles: { halign: 'center', valign: 'middle' }
+          styles: {
+            halign: 'center',
+            valign: 'middle',
+            fillColor: this.fontColorB,
+            fontStyle: 'bold',
+            textColor: this.textColorW,
+          }
         }
       ],
     ];
@@ -306,7 +325,7 @@ export class GenerarPdfService {
           styles: { halign: 'center', valign: 'middle' }
         },
         {
-          content: Number( 3000000000 ).toLocaleString( 'es-CO', {
+          content: Number( 4000000000 ).toLocaleString( 'es-CO', {
             style: 'currency',
             currency: 'COP'
           } ), colSpan: 3, rowSpan: 3,
@@ -513,7 +532,7 @@ export class GenerarPdfService {
       ],
       [
         {
-          content: 'Asistencia ', colSpan: 6,
+          content: 'Asistencia (grúa, carro taller, cerrajero, conductor elegido)', colSpan: 6,
           styles: { halign: 'left' }
         },
         {
@@ -555,14 +574,14 @@ export class GenerarPdfService {
             style: 'currency',
             currency: 'COP'
           } ), colSpan: 3,
-          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+          styles: { halign: 'center', valign: 'middle', fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
         },
         {
           content: Number( cot.total ).toLocaleString( 'es-CO', {
             style: 'currency',
             currency: 'COP'
           } ), colSpan: 3,
-          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+          styles: { halign: 'center', valign: 'middle', fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
         }
       ],
       [
@@ -575,21 +594,33 @@ export class GenerarPdfService {
             style: 'currency',
             currency: 'COP'
           } ), colSpan: 3,
-          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+          styles: {
+            halign: 'center',
+            valign: 'middle',
+            fillColor: this.fontColorB,
+            fontStyle: 'bold',
+            textColor: this.textColorW
+          }
         },
         {
           content: Number( cot.totalVigencia ).toLocaleString( 'es-CO', {
             style: 'currency',
             currency: 'COP'
           } ), colSpan: 3,
-          styles: { halign: 'center', valign: 'middle',  fillColor: this.colorPdfComparativo, fontStyle: 'bold', }
+          styles: {
+            halign: 'center',
+            valign: 'middle',
+            fillColor: this.fontColorB,
+            fontStyle: 'bold',
+            textColor: this.textColorW
+          }
         }
       ],
     ];
     return data;
   }
 
-  setBody( cotizacion ): any[] {
+  setBody( cotizacion, imgMapfre, imgEquidad ): any[] {
     const data = [];
     data.push( this.setTitle() );
     data.push( this.setSubtitle() );
@@ -600,6 +631,75 @@ export class GenerarPdfService {
     data.push( ...this.setAmparoPatrimonial( cotizacion ) );
     data.push( ...this.setAdicionales( cotizacion ) );
     data.push( ...this.setTotales( cotizacion ) );
+    data.push( ...this.setFooter() );
+    return data;
+  }
+
+  setFooter(): any[] {
+    const data = [
+      [
+        {
+          content: 'PRODUCTOS COMPLEMENTARIOS', colSpan: 12,
+          styles: {
+            halign: 'center', fillColor: this.fontColorB2, fontStyle: 'bold',
+            textColor: this.textColorW
+          }
+        }
+      ],
+      [
+        {
+          content: 'Beneficios de la solución de Maestro Seguro', colSpan: 12,
+          styles: {
+            halign: 'center', fillColor: this.fontColorB2, fontStyle: 'bold',
+            textColor: this.textColorW
+          }
+        }
+      ],
+      [
+        {
+          content: 'Es una solución diseñada para proteger a nuestros asociados, cuyo objetivo principal es entregar un beneficio ' +
+            'económico ante eventos adversos como: 1.Diagnostico por primera vez de una enfermedad grave como un cancer o' +
+            ' accidente cerebrovascular $5 millones, 2. indemnización en caso de una hospitalización ($30,000 diarios),' +
+            ' 3. Perdida de la capacidad laboral $10 millones, 4. Fallecimiento $10 millones.',
+          colSpan: 12,
+          styles: { halign: 'left', cellPadding: 1, overflow: 'linebreak' }
+        }
+      ],
+      [
+        {
+          content: 'Beneficios de la solución Seguro para el Hogar', colSpan: 12,
+          styles: {
+            halign: 'center', fillColor: this.fontColorB2, fontStyle: 'bold',
+            textColor: this.textColorW
+          }
+        }
+      ],
+      [
+        {
+          content: 'Es una solución diseñada para proteger el patrimonio de nuestros asociados, cuyo objetivo principal es ' +
+            'entregar un beneficio económico por daños causados a su vivienda ante diferentes eventos, como  beneficios ' +
+            'prinicipales cuenta con Asistencia para el Hogar Cerrajero, plomero, electricista,  Vidrios Rotos en ventanas ' +
+            'exteriores, Asistencia Celaduria, Orientacion medica basica telefonica,  Reparacion de tejas, Vigilante eventos ' +
+            'especiales, Traslado de mascota por accidente o enfermedad.',
+          colSpan: 12,
+          styles: { halign: 'left', cellPadding: 1, overflow: 'linebreak' }
+        }
+      ],
+      [
+        {
+          content: 'Puedes contactar a nuestros Asesores Maestros\n' +
+            'GIP SEGUROS LTDA\n' +
+            'Mail: gipsolicitudes@gmail.com\n' +
+            'Cel. 3223070796-3154721837\n' +
+            'www.gipseguros.com\n' +
+            'LA EXPEDICION DE LA PRESENTE COTIZACION NO IMPLICA ACEPTACION DEL RIESGO. LOS TERMINOS Y\n' +
+            'CONDICIONES AQUI SEÑALADOS ESTAN SUJETOS A LA INSPECCION Y APROBACION DEL RIESGO\n' +
+            'OBJETO DEL SEGURO',
+          colSpan: 12,
+          styles: { halign: 'center', cellPadding: 1, overflow: 'linebreak' }
+        }
+      ]
+    ];
     return data;
   }
 
@@ -621,18 +721,20 @@ export class GenerarPdfService {
     };
   }
 
-  generarPdfComparativo( cotizacion, cooprofesores, equidad, gip ): Observable<any> {
+  generarPdfComparativo( cotizacion, cooprofesores, equidad, gip, mapfre ): Observable<any> {
     this.calcularFechaFinVigencia();
     return new Observable( observer => {
       forkJoin(
         this.leerImagen( cooprofesores ),
         this.leerImagen( equidad ),
         this.leerImagen( gip ),
-      ).subscribe( ( [ cooprofesoresBase64, equidadBase64, gipBase64 ] ) => {
+        this.leerImagen( mapfre ),
+      ).subscribe( ( [ cooprofesoresBase64, equidadBase64, gipBase64, mapfreBase64 ] ) => {
         const doc = new jsPDF( 'p', 'mm', 'a4' );
         // doc.addImage( equidadBase64, 'JPEG', 3, 3, 50, 15 );
         // doc.addImage( cooprofesoresBase64, 'JPEG', 155, 3, 30, 15 );
         // doc.addImage( gipBase64, 'JPEG', 188, 3, 17, 15 );
+        doc.addImage( cooprofesoresBase64, 'JPEG', 188, 3, 17, 15 );
         doc.addImage( gipBase64, 'JPEG', 3, 3, 17, 15 );
         doc.autoTable( {
           styles: { fontSize: 8, cellPadding: 0.5 },
@@ -640,7 +742,7 @@ export class GenerarPdfService {
           theme: 'grid',
           startY: 18,
           margin: { top: 3, left: 3, right: 3 },
-          body: this.setBody( cotizacion )
+          body: this.setBody( cotizacion, mapfreBase64, equidadBase64 )
         } );
         const salida = URL.createObjectURL( new Blob( [ doc.output( 'blob' ) ], { type: 'application/pdf' } ) );
         observer.next( salida );
@@ -1043,7 +1145,8 @@ export class GenerarPdfService {
                 content: 'Beneficios de la solución de Maestro Seguro', colSpan: 12,
                 styles: { halign: 'center', fillColor: '#0ec254', fontStyle: 'bold' }
               }
-            ], [
+            ],
+            [
               {
                 content: 'Es una solución diseñada para proteger a nuestros asociados, cuyo objetivo principal es entregar un beneficio ' +
                   'económico ante eventos adversos como: 1.Diagnostico por primera vez de una enfermedad grave como un cancer o' +
@@ -1052,12 +1155,14 @@ export class GenerarPdfService {
                 colSpan: 12,
                 styles: { halign: 'left', cellPadding: 1, overflow: 'linebreak' }
               }
-            ], [
+            ],
+            [
               {
                 content: 'Beneficios de la solución Seguro para el Hogar', colSpan: 12,
                 styles: { halign: 'center', fillColor: '#0ec254', fontStyle: 'bold' }
               }
-            ], [
+            ],
+            [
               {
                 content: 'Es una solución diseñada para proteger el patrimonio de nuestros asociados, cuyo objetivo principal es ' +
                   'entregar un beneficio económico por daños causados a su vivienda ante diferentes eventos, como  beneficios ' +
@@ -1067,23 +1172,26 @@ export class GenerarPdfService {
                 colSpan: 12,
                 styles: { halign: 'left', cellPadding: 1, overflow: 'linebreak' }
               }
-            ], [
+            ],
+            [
               {
                 content: '24 HORAS AL DIA 365 AL AÑO DESDE SU CELULAR #324', colSpan: 12,
                 styles: { halign: 'center', fillColor: '#0ec254', fontStyle: 'bold' }
               }
-            ], [
+            ],
+            [
               {
                 content: 'REQUISITOS PARA EMITIR \nSolicitud de automoviles firmada. \nCopia de la cédula del propietario del' +
                   ' vehículo Copia de la tarjeta de propiedad',
                 colSpan: 10,
                 styles: { halign: 'center', textColor: 'red' }
               }, {
-                content: 'Protege tu Hogar desde  $378 diarios y tu vida tambien la puedes proteger desde $228 diarios',
-                colSpan: 2,
-                styles: { halign: 'center', textColor: 'red' }
-              }
-            ], [
+              content: 'Protege tu Hogar desde  $378 diarios y tu vida tambien la puedes proteger desde $228 diarios',
+              colSpan: 2,
+              styles: { halign: 'center', textColor: 'red' }
+            }
+            ],
+            [
               {
                 content: 'Puedes contactar a nuestros Asesores Maestros\n' +
                   'GIP SEGUROS LTDA\n' +

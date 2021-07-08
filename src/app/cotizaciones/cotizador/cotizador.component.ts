@@ -134,10 +134,11 @@ export class CotizadorComponent implements OnInit {
       cotizacion.sedeName = sede.nombre;
       forkJoin(
         this.generarPdfService.obtenerImagen( 'gip', 'png' ),
-        this.generarPdfService.obtenerImagen( 'equidad', 'png' ),
+        this.generarPdfService.obtenerImagen( 'equidad_1', 'png' ),
+        this.generarPdfService.obtenerImagen( 'mapfre', 'png' ),
         this.generarPdfService.obtenerImagen( 'cooprofesores', 'png' )
-      ).subscribe( ( [ gip, equidad, cooprofesores ] ) => {
-        this.generarPdfService.generarPdfComparativo( cotizacion, cooprofesores, equidad, gip ).subscribe( res => {
+      ).subscribe( ( [ gip, equidad, mapfre, cooprofesores ] ) => {
+        this.generarPdfService.generarPdfComparativo( cotizacion, cooprofesores, equidad, gip, mapfre ).subscribe( res => {
           this.generandoPdfComparativo = '';
           if ( res ) {
             this.pdfCotizacion = res;
