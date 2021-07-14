@@ -15,8 +15,8 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.version = '2021.05.01';
-    this.autor = 'Weymar Andres Vargas Castillo';
+    this.version = '2021.07.14';
+    this.autor = 'wavc';
   }
 
 }
