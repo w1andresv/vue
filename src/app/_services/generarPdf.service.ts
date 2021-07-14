@@ -56,12 +56,12 @@ export class GenerarPdfService {
     data.push( {
       content: 'MAPFRE', colSpan: 3, rowSpan: 2,
       styles: { halign: 'center', fillColor: this.fontColorMapfre, fontStyle: 'bold', textColor: this.textColorW,
-      valign: 'middle', fontSize: 20}
+      valign: 'middle', fontSize: 12}
     } );
     data.push( {
       content: 'EQUIDAD', colSpan: 3, rowSpan: 2,
       styles: { halign: 'center', fillColor: this.fontColorEquidad, fontStyle: 'bold', textColor: this.textColorW,
-      valign: 'middle', fontSize: 20}
+      valign: 'middle', fontSize: 12}
     } );
     return data;
   }
