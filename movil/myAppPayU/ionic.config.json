@@ -1,0 +1,7 @@
+{
+  "name": "myAppPayU",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

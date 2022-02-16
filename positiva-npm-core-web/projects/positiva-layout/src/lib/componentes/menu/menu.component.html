@@ -1,0 +1,44 @@
+<div id="cuida-notificaciones">
+  <img alt="" class="animated swing" src="assets/imgs/notificacion.svg"/>
+  <a href="{{
+      positivaWebServer + '/administrador/views/bandejaNotificaciones' +ramo+'.page'
+    }}">
+    Notificaciones
+  </a>
+</div>
+<div id="cuida-user">
+  <div id="cuida-user-icon" class="animated bounceIn">
+    <img alt="" class="animated swing" src="assets/imgs/user.svg"/>
+  </div>
+  <div id="cuida-user-info">
+    <a href="{{ positivaWebServer + '/administrador/views/info-user' +ramo+'.page' }}">
+      <div id="cuida-user-name">
+        {{ usuario?.nombre }}
+      </div>
+      <div id="cuida-user-role">
+        {{ usuario?.authority }}
+      </div>
+      <div id="cuida-user-company">
+        {{ usuario?.empresa }}
+      </div>
+    </a>
+  </div>
+</div>
+<h3 id="cuida-menu-title">Menu</h3>
+<ul id="cuida-menu-list">
+  <app-menu-item *ngFor="let menuPadre of menusList" [menuItem]="menuPadre" (openMenuEvent)="onOpenMenuEvent($event)">
+  </app-menu-item>
+  <li class="cuida-menu-item">
+    <a href="{{  '/web/cambiar-password' }}">Cambiar constraseña</a>
+  </li>
+  <li class="cuida-menu-item" (click)="cerrar()">
+    <a>Cerrar sesión</a>
+  </li>
+</ul>
+<div id="cuida-menu-conexia">
+  <img alt="" class="animated swing" src="assets/imgs/logo-servicio-de-conexia.png"/>
+</div>
+<div id="cuida-menu-date">
+  Fecha y Hora <br/>
+  {{ fechaHoraActual | date: "M/d/yy h:mm:ss a" }}
+</div>
